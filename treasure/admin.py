@@ -7,14 +7,14 @@ from .models import Gemstone, GemstoneIcon
 
 @admin.register(Gemstone)
 class GemstoneAdmin(admin.ModelAdmin):
-    list_display = ('name', '_icon', 'description', 'value',)
+    list_display = ('name', '_icon', 'id', 'description', 'value',)
     def _icon(self, obj):
         url = reverse("admin:treasure_gemstoneicon_change", args=[obj.icon.id])
         return format_html('<a href="{}"><img src="{}" width="32" height="32"/></a>'.format(url, obj.icon.image.url))
 
 @admin.register(GemstoneIcon)
 class GemstoneIconAdmin(admin.ModelAdmin):
-    list_display = ('thumbnail', 'name', 'id', 'width', 'height')
+    list_display = ('icon', 'name', 'id', 'width', 'height')
 
-    def thumbnail(self, obj):
+    def icon(self, obj):
         return format_html('<img src="{}" width="32" height="32"/>'.format(obj.image.url))

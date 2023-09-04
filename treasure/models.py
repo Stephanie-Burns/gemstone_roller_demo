@@ -1,7 +1,7 @@
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
-from django.db import models
+from django.db import models, transaction
 
 from PIL import Image
 
@@ -33,3 +33,10 @@ class Gemstone(models.Model):
     description = models.CharField(max_length=512)
     value = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(1_000_000)])
 
+    @transaction.atomic
+    def delete(self, *args, **kwargs):
+        icon = self.icon
+        super().delete(*args, **kwargs)
+
+        if not Gemstone.objects.filter(icon=icon).exists():
+            icon.delete()
