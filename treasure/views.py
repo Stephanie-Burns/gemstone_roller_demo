@@ -1,8 +1,7 @@
 
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.text import slugify
 
 from . import forms
 from . import models
