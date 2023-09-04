@@ -1,0 +1,32 @@
+    <h1>Gemstone Details</h1>
+
+    <div>
+        <strong>Name:</strong> {{ gemstone.name }}
+    </div>
+
+    <div>
+        <strong>Clarity:</strong> {{ gemstone.clarity }}
+    </div>
+
+    <div>
+        <strong>Color(s):</strong> {{ gemstone.color }}
+    </div>
+
+    <div>
+        <strong>Description:</strong>
+        <p>
+            {{ gemstone.description }}
+        </p>
+    </div>
+
+    <div>
+        <strong>Value:</strong> {{ gemstone.value }}
+    </div>
+
+    <div>
+        <strong>Icon:</strong>
+        <img src="{{ gemstone.icon.image.url }}" width="64" height="64" alt="{{ gemstone.name }} icon">
+    </div>
+
+    <br>
+    <a href="{% url 'treasure:gemstone_edit' gemstone.id %}">Edit</a>

@@ -1,0 +1,7 @@
+
+<h1>Gemstone Home</h1>
+<a href="{% url 'treasure:index' %}">Treasure Home</a>
+<br>
+<a href="{% url 'treasure:gemstone_create' %}">Create</a>
+
+{% include 'treasure/gemstone-all.html' with gemstones=gemstones %}

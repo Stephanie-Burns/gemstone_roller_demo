@@ -7,7 +7,7 @@
                 <img src="{{ gemstone.icon.image.url }}" alt="{{ gemstone.name }}" width="32" height="32">
 
                 <!-- Display the gemstone name -->
-                <p>{{ gemstone.name }}</p>
+                <a href="{% url 'treasure:gemstone_view' gemstone.id %}">{{ gemstone.name }}</a>
             </div>
         {% endfor %}
     </div>

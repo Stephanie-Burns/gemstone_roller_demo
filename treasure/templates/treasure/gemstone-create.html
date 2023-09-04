@@ -3,12 +3,16 @@
 {{ form.errors }}
 
 <form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.name.label_tag }} {{ form.name }}
+    {% csrf_token %}
+    {{ form.name.label_tag }} {{ form.name }}
   <br>
-  {{ form.value.label_tag }} {{ form.value}}
+    {{ form.value.label_tag }} {{ form.value}}
   <br>
-  {{ form.description.label_tag }} {{ form.description }}
+    {{ form.clarity.label_tag }} {{ form.clarity}}
+  <br>
+    {{ form.color.label_tag }} {{ form.color }}
+  <br>
+    {{ form.description.label_tag }} {{ form.description }}
   <br>
     {{ form.icon.label_tag }} {{ form.icon}}
   <br>

@@ -13,6 +13,11 @@ def index(request):
     return render(request, 'treasure/index.html')
 
 
+def gemstone_index(request):
+    gemstones = models.Gemstone.objects.all()
+    return render(request, 'treasure/gemstone-index.html', {'gemstones': gemstones})
+
+
 @transaction.atomic
 def gemstone_create(request):
 
@@ -27,13 +32,19 @@ def gemstone_create(request):
             gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name)
             gemstone.save()
 
-            return redirect('treasure:index')
+            return redirect('treasure:gemstone_index')
 
     else:
 
         form = forms.GemstoneForm()
 
     return render(request, 'treasure/gemstone-create.html', {'form': form})
+
+
+def gemstone_view(request, gemstone_id):
+    gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
+    return render(request, 'treasure/gemstone-view.html', {'gemstone': gemstone})
+
 
 @transaction.atomic
 def gemstone_edit(request, gemstone_id):
@@ -50,7 +61,7 @@ def gemstone_edit(request, gemstone_id):
                 gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name)
 
             gemstone.save()
-            return redirect('treasure:index')
+            return redirect('treasure:gemstone_index')
 
     else:
         form = forms.GemstoneForm(instance=gemstone)
@@ -58,6 +69,7 @@ def gemstone_edit(request, gemstone_id):
     icon_url = gemstone.icon.image.url if gemstone.icon else None
     context = {'form': form, 'icon_url': icon_url, 'gemstone_id': gemstone_id}
     return render(request, 'treasure/gemstone-edit.html', context)
+
 
 def gemstone_delete(request, gemstone_id):
 
@@ -67,7 +79,8 @@ def gemstone_delete(request, gemstone_id):
     gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
     gemstone.delete()
 
-    return redirect('treasure:index')
+    return redirect('treasure:gemstone_index')
+
 
 def gemstone_all(request):
     gemstones = models.Gemstone.objects.all()

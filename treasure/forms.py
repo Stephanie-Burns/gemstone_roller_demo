@@ -10,7 +10,7 @@ class GemstoneForm(forms.ModelForm):
     class Meta:
 
         model = models.Gemstone
-        fields = ['name', 'description', 'value']
+        fields = ['name', 'clarity', 'color', 'description', 'value']
 
     def clean_icon(self):
 
