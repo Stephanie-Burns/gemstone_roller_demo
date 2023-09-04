@@ -9,4 +9,4 @@ class GemstoneForm(forms.ModelForm):
 
     class Meta:
         model = models.Gemstone
-        fields = ['name', 'description', 'value', 'icon']
+        fields = ['name', 'description', 'value']
