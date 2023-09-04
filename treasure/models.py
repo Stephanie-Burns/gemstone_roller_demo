@@ -3,9 +3,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
 from django.db import models, transaction
 
-from PIL import Image
-
 from . import services
+
 
 class GemstoneClarity(models.Model):
     name = models.CharField(max_length=128)
@@ -16,7 +15,9 @@ class GemstoneClarity(models.Model):
     class Meta:
         verbose_name_plural = 'Gemsonte clarities'
 
+
 class GemstoneIcon(models.Model):
+
     name = models.CharField(max_length=128)
     image = models.ImageField(upload_to='gemstone-icons', max_length=128, height_field='height', width_field='width')
     width = models.PositiveIntegerField()
@@ -37,12 +38,13 @@ class GemstoneIcon(models.Model):
 
 
 class Gemstone(models.Model):
+
     name = models.CharField(max_length=128)
-    icon = models.ForeignKey(GemstoneIcon, related_name='gemstones', on_delete=models.SET_DEFAULT, default=1)
+    value = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(1_000_000)])
     clarity = models.ForeignKey(GemstoneClarity, related_name='gemstones', on_delete=models.SET_DEFAULT, default=1)
     color = models.CharField(max_length=128, blank=True, verbose_name='Color(s)')
     description = models.TextField(max_length=1024)
-    value = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(1_000_000)])
+    icon = models.ForeignKey(GemstoneIcon, related_name='gemstones', on_delete=models.SET_DEFAULT, default=1)
 
     @transaction.atomic
     def delete(self, *args, **kwargs):
