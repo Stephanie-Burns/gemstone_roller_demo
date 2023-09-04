@@ -1,0 +1,13 @@
+    <h1>All Gemstones</h1>
+
+    <div>
+        {% for gemstone in gemstones %}
+            <div>
+                <!-- Display the gemstone image -->
+                <img src="{{ gemstone.icon.image.url }}" alt="{{ gemstone.name }}" width="32" height="32">
+
+                <!-- Display the gemstone name -->
+                <p>{{ gemstone.name }}</p>
+            </div>
+        {% endfor %}
+    </div>

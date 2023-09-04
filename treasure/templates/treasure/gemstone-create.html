@@ -1,0 +1,15 @@
+
+
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.name.label_tag }} {{ form.name }}
+  <br>
+  {{ form.value.label_tag }} {{ form.value}}
+  <br>
+  {{ form.description.label_tag }} {{ form.description }}
+  <br>
+  Upload Icon: <input type="file" name="icon">
+  <br>
+  <input type="submit" value="Save">
+</form>
