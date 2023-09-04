@@ -1,0 +1,39 @@
+
+{% load static %}
+
+<!-- Display all form errors at the top -->
+{{ form.errors }}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.name.label_tag }} {{ form.name }}
+    <br>
+    {{ form.value.label_tag }} {{ form.value }}
+    <br>
+    {{ form.clarity.label_tag }} {{ form.clarity }}
+    <br>
+    {{ form.color.label_tag }} {{ form.color }}
+    <br>
+    {{ form.description.label_tag }} {{ form.description }}
+    <br>
+    {{ form.icon.label_tag }} {{ form.icon }}
+    <br>
+
+    <div>
+        {% if icon_url %}
+            <img id="old-image-preview" src="{{ icon_url }}" width="32" height="32" />
+        {% endif %}
+        <img id="image-preview" src="#" alt="Image Preview" style="display:none; width: 32px; height: 32px;"/>
+    </div>
+    <br>
+
+    <input type="submit" value="Save">
+
+</form>
+
+<script src="{% static 'js/image_preview.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        initializeImagePreview();
+    });
+</script>

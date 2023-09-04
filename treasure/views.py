@@ -36,8 +36,9 @@ def gemstone_create(request):
     else:
 
         form = forms.GemstoneForm()
+        default_icon_url = models.GemstoneIcon.objects.get(id=1).image.url
 
-    return render(request, 'treasure/gemstone-create.html', {'form': form})
+    return render(request, 'treasure/gemstone-create.html', {'form': form, 'icon_url': default_icon_url})
 
 
 def gemstone_view(request, gemstone_id):

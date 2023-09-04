@@ -1,31 +1,7 @@
 
-<!-- Display all form errors at the top -->
-{{ form.errors }}
+<h1>Edit Gemstone</h1>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.name.label_tag }} {{ form.name }}
-    <br>
-    {{ form.value.label_tag }} {{ form.value}}
-    <br>
-    {{ form.clarity.label_tag }} {{ form.clarity}}
-    <br>
-    {{ form.color.label_tag }} {{ form.color }}
-    <br>
-    {{ form.description.label_tag }} {{ form.description }}
-    <br>
-    {{ form.icon.label_tag }} {{ form.icon}}
-    <br>
-
-    <div>
-        {% if icon_url %}
-            <img id="old-image-preview" src="{{ icon_url }}" width="32" height="32" />
-        {% endif %}
-        <img id="image-preview" src="#" alt="Image Preview" style="display:none; width: 32px; height: 32px;"/>
-    </div>
-    <br>
-    <input type="submit" value="Save">
-</form>
+{% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url gemstone_id=gemstone_id %}
 
 <form
     action="{% url 'treasure:gemstone_delete' gemstone_id %}"
@@ -35,28 +11,3 @@
     {% csrf_token %}
     <input type="submit" value="Delete Gemstone">
 </form>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-        const input = document.querySelector('input[type=file]');
-        input.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    // Hide the old image
-                    const oldImg = document.getElementById('old-image-preview');
-                    if (oldImg) {
-                        oldImg.style.display = 'none';
-                    }
-
-                    // Get the preview element and set its source to the selected image
-                    const img = document.getElementById('image-preview');
-                    img.src = e.target.result;
-                    img.style.display = 'block';  // Make the image visible
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-    });
-</script>

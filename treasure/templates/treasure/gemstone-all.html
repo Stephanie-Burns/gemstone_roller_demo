@@ -1,4 +1,7 @@
-    <h1>All Gemstones</h1>
+
+{% load humanize %}
+
+<h1>All Gemstones</h1>
 
     <div>
         {% for gemstone in gemstones %}
@@ -8,6 +11,7 @@
 
                 <!-- Display the gemstone name -->
                 <a href="{% url 'treasure:gemstone_view' gemstone.id %}">{{ gemstone.name }}</a>
+                {{ gemstone.value|intcomma }} GP
             </div>
         {% endfor %}
     </div>
