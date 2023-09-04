@@ -1,5 +1,6 @@
 
-
+    <!-- Display all form errors at the top -->
+{{ form.errors }}
 
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
@@ -9,7 +10,28 @@
   <br>
   {{ form.description.label_tag }} {{ form.description }}
   <br>
-  Upload Icon: <input type="file" name="icon">
+    {{ form.icon.label_tag }} {{ form.icon}}
   <br>
+    <img id="image-preview" src="#" alt="Image Preview" style="display:none; width: 32px; height: 32px;"/>
   <input type="submit" value="Save">
 </form>
+
+<script>
+  // Using plain JavaScript to attach an event listener to the file input
+  document.addEventListener("DOMContentLoaded", function(){
+    const input = document.querySelector('input[type=file]');
+    input.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          // Get the preview element and set its source to the selected image
+          const img = document.getElementById('image-preview');
+          img.src = e.target.result;
+          img.style.display = 'block';  // Make the image visible
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+</script>
