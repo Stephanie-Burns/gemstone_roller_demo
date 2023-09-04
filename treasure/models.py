@@ -22,12 +22,9 @@ class GemstoneIcon(models.Model):
 
     def save(self, *args, **kwargs):
 
-        # Save to process image
         super().save(*args, **kwargs)
 
-        # process and save image
         self.height, self.width = services.shrink_image(self.image.path)
-        super().save(*args, **kwargs)
 
 
 class Gemstone(models.Model):
