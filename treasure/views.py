@@ -21,8 +21,8 @@ def gemstone_create(request):
         if form.is_valid():
             with transaction.atomic():
                 gemstone = form.save(commit=False)
-                # upload_icon = request.FILES.get('icon', None)
-                upload_icon = form.icon
+                upload_icon = request.FILES.get('icon', None)
+                # upload_icon = form.icon
 
                 if upload_icon:
                     file_hash = services.calculate_file_hash(upload_icon)

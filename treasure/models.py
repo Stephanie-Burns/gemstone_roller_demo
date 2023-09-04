@@ -3,6 +3,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
 from django.db import models
 
+from PIL import Image
+
+from . import services
 
 class GemstoneIcon(models.Model):
     name = models.CharField(max_length=128)
@@ -16,6 +19,13 @@ class GemstoneIcon(models.Model):
 
     def generate_name(self, gemstone_name, file_hash):
         self.name = slugify(f'gemstone-icon_{gemstone_name}_{file_hash}')
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        self.height, self.width = services.shrink_image(self.image.path)
+
+
 
 class Gemstone(models.Model):
     name = models.CharField(max_length=128)
