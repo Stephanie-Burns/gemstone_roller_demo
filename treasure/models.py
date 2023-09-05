@@ -1,4 +1,5 @@
 
+from django.core.files.storage import default_storage
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
 from django.db import models, transaction
@@ -52,4 +53,6 @@ class Gemstone(models.Model):
         super().delete(*args, **kwargs)
 
         if not Gemstone.objects.filter(icon=icon).exists():
+            if default_storage.exists(icon.image.path):
+                default_storage.delete(icon.image.path)
             icon.delete()
