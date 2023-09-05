@@ -37,6 +37,9 @@ class Command(BaseCommand):
                         django_file = File(file=f, name=icon_file_path.name)
                         icon = get_or_create_icon(django_file, row['name'])
 
+                else:
+                    print(f"Failed to locate file path {icon_file_path}")
+
                 Gemstone.objects.create(
                     name=row['name'],
                     value=row['value'],
