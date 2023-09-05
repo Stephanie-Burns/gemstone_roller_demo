@@ -1,16 +1,13 @@
 
 import csv
-import tempfile
 from pathlib import Path
 from os.path import exists
 
-from django.core.management.base import BaseCommand
 from django.core.files import File
-from django.conf import settings
+from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.utils._os import safe_join
 
-from treasure.models import Gemstone, GemstoneClarity, GemstoneIcon
+from treasure.models import Gemstone, GemstoneClarity
 from treasure.services import get_or_create_icon
 
 

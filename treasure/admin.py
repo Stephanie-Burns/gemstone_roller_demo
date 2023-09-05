@@ -5,6 +5,7 @@ from django.utils.html import format_html
 
 from . import models
 
+
 @admin.register(models.Gemstone)
 class GemstoneAdmin(admin.ModelAdmin):
     list_display = ('name', '_icon', 'value', 'clarity', 'color', 'description', 'id')
