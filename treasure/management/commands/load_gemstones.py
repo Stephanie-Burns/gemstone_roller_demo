@@ -28,6 +28,7 @@ class Command(BaseCommand):
 
                 icon_file_path = Path.home() / 'Pictures' / row['icon']
 
+                icon = None
                 if exists(icon_file_path):
 
                     with open(icon_file_path, 'rb') as f:
@@ -37,12 +38,15 @@ class Command(BaseCommand):
                 else:
                     print(f"Failed to locate file path {icon_file_path}")
 
-                Gemstone.objects.create(
+                Gemstone.objects.update_or_create(
                     name=row['name'],
-                    value=row['value'],
-                    clarity=clarity,
-                    color=row['color'],
-                    description=row['description'],
-                    icon=icon
+                    defaults={
+                        'value': row['value'],
+                        'clarity': clarity,
+                        'color': row['color'],
+                        'description': row['description'],
+                        'icon': icon
+                    }
                 )
+
         self.stdout.write(self.style.SUCCESS('Successfully loaded data'))
