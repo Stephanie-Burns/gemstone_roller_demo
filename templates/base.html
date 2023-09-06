@@ -1,10 +1,37 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}TreasureChest{% endblock %}</title>
 
+    {% load static %}
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+
+    <!-- htmx -->
+    <script src="https://unpkg.com/htmx.org@1.9.5" integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO" crossorigin="anonymous"></script>
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+{% block body %}
+    <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    <!-- NavBar -->
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
+
+    <!-- Main Content -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Page JS -->
+    {% block extra_js %}{% endblock %}
 </body>
+{% endblock %}
+
 </html>

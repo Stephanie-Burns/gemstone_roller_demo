@@ -14,4 +14,6 @@ urlpatterns = [
     path("gemstone/edit/<int:gemstone_id>/", views.gemstone_edit, name="gemstone_edit"),
     path("gemstone/delete/<int:gemstone_id>/", views.gemstone_delete, name="gemstone_delete"),
     path("gemstone/all/", views.gemstone_all, name="gemstone_all"),
+
+    path("gemstone/sorted-table/", views.gemstone_sorted_table, name="gemstone_sorted_table"),
 ]

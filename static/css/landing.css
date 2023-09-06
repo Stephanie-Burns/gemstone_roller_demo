@@ -1,0 +1,6 @@
+th[hx-get]:hover {
+    background-color: #f2f2f2;
+}
+th[hx-get] {
+    cursor: pointer;
+}

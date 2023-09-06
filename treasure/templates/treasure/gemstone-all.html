@@ -1,17 +1,9 @@
 
-{% load humanize %}
+{% extends 'base.html' %}
 
-<h1>All Gemstones</h1>
+{% block content %}
 
-    <div>
-        {% for gemstone in gemstones %}
-            <div>
-                <!-- Display the gemstone image -->
-                <img src="{{ gemstone.icon.image.url }}" alt="{{ gemstone.name }}" width="32" height="32">
+    <h2>All Gemstones</h2>
+    {% include 'treasure/snippets/gemstone-table.html' %}
 
-                <!-- Display the gemstone name -->
-                <a href="{% url 'treasure:gemstone_view' gemstone.id %}">{{ gemstone.name }}</a>
-                {{ gemstone.value|intcomma }} GP
-            </div>
-        {% endfor %}
-    </div>
+{% endblock %}
