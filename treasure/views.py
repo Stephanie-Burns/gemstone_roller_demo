@@ -1,7 +1,7 @@
 
 from django.db import transaction
 from django.db.models.functions import Lower
-from django.http import HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, render, redirect
 
 from . import forms
@@ -89,6 +89,10 @@ def gemstone_all(request):
     return render(request, 'treasure/gemstone-all.html', {'gemstones': gemstones})
 
 
+def gemstone_search(request):
+    return render(request, 'treasure/gemstone-search.html')
+
+
 def gemstone_sorted_table(request):
 
     sort_by, order = services.get_gemstone_sort_order_from_session(request)
@@ -102,12 +106,17 @@ def gemstone_sorted_table(request):
 
 def gemstone_search_table(request):
 
-    search_term = request.GET.get('search_term')
-    sort_by, order = services.get_gemstone_sort_order_from_session(request)
+    search_term = request.GET.get('q')
 
-    gemstones = models.Gemstone.objects \
-        .get_queryset() \
-        .sorted_query(sort_by=sort_by, order=order) \
-        .search_for(search_term)
+    if search_term:
 
-    return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
+        sort_by, order = services.get_gemstone_sort_order_from_session(request)
+
+        gemstones = models.Gemstone.objects \
+            .get_queryset() \
+            .sorted_query(sort_by=sort_by, order=order) \
+            .search_for(search_term=search_term)
+
+        return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
+
+    return HttpResponse(status=200)

@@ -1,0 +1,30 @@
+
+{% include 'base.html' %}
+
+{% block content %}
+
+    <h1>Search Gemstones</h1>
+
+    <input name="q"
+           placeholder="Search for a gem..."
+           hx-get="{% url 'treasure:gemstone_search_table' %}"
+           hx-target="#search_results"
+           hx-trigger="input delay:0.2s"
+    >
+    <button id="clear_button" type="button"
+            hx-get="{% url 'treasure:gemstone_search_table' %}"
+            hx-target="#search_results"
+            hx-trigger="click"
+    >
+            Clear
+    </button>
+
+    <section id="search_results">
+        <div>
+            {% if gemstones %}
+                {% include 'treasure/snippets/gemstone-table.html' %}
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}
