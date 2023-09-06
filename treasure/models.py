@@ -2,9 +2,21 @@
 from django.core.files.storage import default_storage
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models, transaction
+from django.db.models import Q
+from django.db.models.functions import Lower
+from django.db.models.query import QuerySet
 from django.utils.text import slugify
 
 from . import services
+
+
+GEMSTONE_DEFAULT_ORDER = 'value'
+GEMSTONE_ALLOWED_SEARCH_FIELDS = [
+    'name',
+    'value',
+    'color',
+    'clarity',
+]
 
 
 class GemstoneClarity(models.Model):
@@ -16,7 +28,6 @@ class GemstoneClarity(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
 class GemstoneIcon(models.Model):
@@ -45,6 +56,36 @@ class GemstoneIcon(models.Model):
         self.name = slugify(f'gemstone-icon_{gemstone_name}_{file_hash}')
 
 
+class GemstoneQueryMixin(object):
+
+    def sorted_query(self, *, sort_by: str, order: str):
+
+        if order == 'desc':
+            return self.order_by(Lower(sort_by).desc())
+
+        return self.order_by(Lower(sort_by))
+
+    def search_for(self, *, search_term: str):
+
+        if search_term.isnumeric():
+            return self.filter(value=int(search_term))
+
+        return self.filter(
+            Q(name__icontains=search_term)          |
+            Q(clarity__name__icontains=search_term) |
+            Q(color__icontains=search_term)
+        )
+
+
+class GemstoneQueryQuerySet(QuerySet, GemstoneQueryMixin):
+    pass
+
+
+class GemstoneManager(models.Manager):
+
+    def get_queryset(self):
+        return GemstoneQueryQuerySet(self.model, using=self._db)
+
 
 class Gemstone(models.Model):
 
@@ -64,6 +105,8 @@ class Gemstone(models.Model):
         on_delete=models.SET_DEFAULT,
         default=1
     )
+
+    objects = GemstoneManager()
 
     @transaction.atomic
     def delete(self, *args, **kwargs):

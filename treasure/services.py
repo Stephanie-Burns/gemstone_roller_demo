@@ -66,3 +66,17 @@ def get_or_create_icon(upload_icon: InMemoryUploadedFile, gemstone_name: str):
     else:
 
         return models.GemstoneIcon.objects.get(id=1)
+
+
+def get_gemstone_sort_order_from_session(request):
+
+    sort_by = request.GET.get('sort_by', None)
+
+    if not sort_by or sort_by not in models.GEMSTONE_ALLOWED_SEARCH_FIELDS:
+        sort_by = models.GEMSTONE_DEFAULT_ORDER
+
+    last_order = request.session.get(f'{sort_by}_order', 'asc')
+    new_order = 'desc' if last_order == 'asc' else 'asc'
+    request.session[f'{sort_by}_order'] = new_order
+
+    return sort_by, new_order

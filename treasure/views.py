@@ -1,19 +1,12 @@
 
 from django.db import transaction
+from django.db.models.functions import Lower
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, render, redirect
 
 from . import forms
 from . import models
 from . import services
-
-GEMSTONE_DEFAULT_ORDER = 'value'
-GEMSTONE_ALLOWED_FIELDS = [
-    'name',
-    'value',
-    'color',
-    'clarity',
-]
 
 
 def index(request):
@@ -98,14 +91,23 @@ def gemstone_all(request):
 
 def gemstone_sorted_table(request):
 
-    sort_by = request.GET.get('sort_by', None)
-    if not sort_by or sort_by not in GEMSTONE_ALLOWED_FIELDS:
-        sort_by = GEMSTONE_DEFAULT_ORDER
+    sort_by, order = services.get_gemstone_sort_order_from_session(request)
 
-    # Store sort order in session
-    last_order = request.session.get(f'{sort_by}_order', 'asc')
-    new_order = 'desc' if last_order == 'asc' else 'asc'
-    request.session[f'{sort_by}_order'] = new_order
+    gemstones = models.Gemstone.objects\
+        .get_queryset()\
+        .sorted_query(sort_by=sort_by, order=order)
 
-    gemstones = models.Gemstone.objects.all().order_by(f'{"-" if new_order == "desc" else ""}{sort_by}')
+    return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
+
+
+def gemstone_search_table(request):
+
+    search_term = request.GET.get('search_term')
+    sort_by, order = services.get_gemstone_sort_order_from_session(request)
+
+    gemstones = models.Gemstone.objects \
+        .get_queryset() \
+        .sorted_query(sort_by=sort_by, order=order) \
+        .search_for(search_term)
+
     return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
