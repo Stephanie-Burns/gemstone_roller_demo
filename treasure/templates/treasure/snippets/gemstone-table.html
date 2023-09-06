@@ -47,12 +47,12 @@
     </thead>
     <tbody>
         {% for gemstone in gemstones %}
-            <tr>
-            <td><img src="{{ gemstone.icon.image.url }}" alt="{{ gemstone.name }}" width="32" height="32"></td>
-            <td>{{ gemstone.name }}</td>
-            <td>{{ gemstone.value|intcomma }} GP</td>
-            <td>{{ gemstone.clarity }}</td>
-            <td>{{ gemstone.color }}</td>
+            <tr class="gemstone-tr" onclick="window.location='{% url 'treasure:gemstone_view' gemstone.id %}';">
+                <td><img src="{{ gemstone.icon.image.url }}" alt="{{ gemstone.name }}" width="32" height="32"></td>
+                <td>{{ gemstone.name }}</td>
+                <td>{{ gemstone.value|intcomma }} GP</td>
+                <td>{{ gemstone.clarity }}</td>
+                <td>{{ gemstone.color }}</td>
             </tr>
         {% endfor %}
     </tbody>

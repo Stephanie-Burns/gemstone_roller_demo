@@ -4,3 +4,10 @@ th[hx-get]:hover {
 th[hx-get] {
     cursor: pointer;
 }
+
+.gemstone-tr:hover {
+    background-color: #f2f2f2;
+}
+.gemstone-tr {
+    cursor: pointer;
+}
