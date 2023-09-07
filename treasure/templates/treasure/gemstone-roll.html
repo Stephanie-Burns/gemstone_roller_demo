@@ -1,0 +1,112 @@
+
+{% include 'base.html' %}
+
+{% block content %}
+<form id="gemForm" action="/submit_gems/" method="post">
+    <div>
+        <p>10 GP
+            <button type="button" onclick="increment('gem_10_count')">+</button>
+            <button type="button" onclick="decrement('gem_10_count')">-</button>
+            <input type="hidden" id="gem_10_count_input" name="gem_10_count" value="0" />
+            <span id="gem_10_count">0</span>
+        </p>
+    </div>
+
+    <div>
+        <p>50 GP
+            <button type="button" onclick="increment('gem_50_count')">+</button>
+            <button type="button" onclick="decrement('gem_50_count')">-</button>
+            <input type="hidden" id="gem_50_count_input" name="gem_50_count" value="0" />
+            <span id="gem_50_count">0</span>
+        </p>
+    </div>
+
+    <div>
+        <p>100 GP
+            <button type="button" onclick="increment('gem_100_count')">+</button>
+            <button type="button" onclick="decrement('gem_100_count')">-</button>
+            <input type="hidden" id="gem_100_count_input" name="gem_100_count" value="0" />
+            <span id="gem_100_count">0</span>
+        </p>
+    </div>
+
+    <div>
+        <p>500 GP
+            <button type="button" onclick="increment('gem_500_count')">+</button>
+            <button type="button" onclick="decrement('gem_500_count')">-</button>
+            <input type="hidden" id="gem_500_count_input" name="gem_500_count" value="0" />
+            <span id="gem_500_count">0</span>
+        </p>
+    </div>
+
+    <div>
+        <p>1,000 GP
+            <button type="button" onclick="increment('gem_1000_count')">+</button>
+            <button type="button" onclick="decrement('gem_1000_count')">-</button>
+            <input type="hidden" id="gem_1000_count_input" name="gem_1000_count" value="0" />
+            <span id="gem_1000_count">0</span>
+        </p>
+    </div>
+
+    <div>
+        <p>5,000 GP
+            <button type="button" onclick="increment('gem_5000_count')">+</button>
+            <button type="button" onclick="decrement('gem_5000_count')">-</button>
+            <input type="hidden" id="gem_5000_count_input" name="gem_5000_count" value="0" />
+            <span id="gem_5000_count">0</span>
+        </p>
+    </div>
+    <br>
+    <button type="submit">Roll</button>
+</form>
+
+<div id="result">
+    <h2>Total Gems: <span id="total_count">0</span></h2>
+    <h2>Total Value: <span id="total_value">0</span> gp</h2>
+</div>
+
+<script>
+    function increment(id) {
+        let elem = document.getElementById(id);
+        let count = parseInt(elem.innerText) + 1;
+        elem.innerText = count;
+        document.getElementById(id + '_input').value = count;
+        calculate();
+    }
+
+    function decrement(id) {
+        let elem = document.getElementById(id);
+        let count = parseInt(elem.innerText);
+        if (count > 0) {
+            count--;
+            elem.innerText = count;
+            document.getElementById(id + '_input').value = count;
+        }
+        calculate();
+    }
+
+    function calculate() {
+        const gemValues = {
+            'gem_10_count': 10,
+            'gem_50_count': 50,
+            'gem_100_count': 100,
+            'gem_500_count': 500,
+            'gem_1000_count': 1000,
+            'gem_5000_count': 5000,
+        };
+
+        let total_count = 0;
+        let total_value = 0;
+
+        for (const [gemId, gemValue] of Object.entries(gemValues)) {
+            const count = parseInt(document.getElementById(gemId).innerText);
+            total_count += count;
+            total_value += count * gemValue;
+        }
+
+        document.getElementById('total_count').innerText = total_count;
+        document.getElementById('total_value').innerText = total_value;
+    }
+</script>
+
+{% endblock %}

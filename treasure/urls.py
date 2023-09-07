@@ -15,6 +15,7 @@ urlpatterns = [
     path("gemstone/delete/<int:gemstone_id>/", views.gemstone_delete, name="gemstone_delete"),
     path("gemstone/all/", views.gemstone_all, name="gemstone_all"),
     path("gemstone/search/", views.gemstone_search, name="gemstone_search"),
+    path("gemstone/roll/", views.gemstone_roll, name="gemstone_roll"),
 
     # HTMX requests
     path("gemstone/sorted-table/", views.gemstone_sorted_table, name="gemstone_sorted_table"),

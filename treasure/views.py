@@ -89,10 +89,6 @@ def gemstone_all(request):
     return render(request, 'treasure/gemstone-all.html', {'gemstones': gemstones})
 
 
-def gemstone_search(request):
-    return render(request, 'treasure/gemstone-search.html')
-
-
 def gemstone_sorted_table(request):
 
     sort_by, order = services.get_gemstone_sort_order_from_session(request)
@@ -102,6 +98,10 @@ def gemstone_sorted_table(request):
         .sorted_query(sort_by=sort_by, order=order)
 
     return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
+
+
+def gemstone_search(request):
+    return render(request, 'treasure/gemstone-search.html')
 
 
 def gemstone_search_table(request):
@@ -120,3 +120,6 @@ def gemstone_search_table(request):
         return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
 
     return HttpResponse(status=200)
+
+def gemstone_roll(request):
+    return render(request, 'treasure/gemstone-roll.html')

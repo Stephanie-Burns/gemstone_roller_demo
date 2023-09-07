@@ -8,6 +8,10 @@
     <br>
     <a href="{% url 'treasure:gemstone_create' %}">Create</a>
     <br>
+    <a href="{% url 'treasure:gemstone_search' %}">Search</a>
+    <br>
+    <a href="{% url 'treasure:gemstone_roll' %}">Roll</a>
+    <br>
     <a href="{% url 'treasure:gemstone_all' %}">All</a>
 
     {% include 'treasure/gemstone-all.html' with gemstones=gemstones %}
