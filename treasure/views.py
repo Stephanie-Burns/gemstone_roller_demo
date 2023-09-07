@@ -127,6 +127,7 @@ def gemstone_search_table(request):
 def gemstone_roll(request):
 
     if request.headers.get('HX-Request'):
+
         gemstones = []
         for gem, count in request.GET.items():
 

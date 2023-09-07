@@ -1,7 +1,7 @@
-th[hx-get]:hover {
+.gemstone-th:hover {
     background-color: #f2f2f2;
 }
-th[hx-get] {
+.gemstone-th {
     cursor: pointer;
 }
 
