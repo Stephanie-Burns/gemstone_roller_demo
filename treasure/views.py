@@ -93,7 +93,9 @@ def gemstone_all(request):
 
 def gemstone_search(request):
 
-    return render(request, 'treasure/gemstone-search.html')
+    gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
+
+    return render(request, 'treasure/gemstone-search.html', {'gemstones': gemstones})
 
 
 def gemstone_search_table(request):
@@ -110,7 +112,10 @@ def gemstone_search_table(request):
 
         return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
 
-    return HttpResponse(status=200)
+    gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
+    # return HttpResponse(status=200)
+
+    return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
 
 
 def gemstone_roll(request):

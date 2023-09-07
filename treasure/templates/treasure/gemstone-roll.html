@@ -11,7 +11,9 @@
     >
         {% csrf_token %}
         <div>
-            <p>10 GP
+            <p>
+                <img src="{% static 'img/gem-10.png' %}" alt="10 gp gemstone" height="32" width="32">
+                10 GP
                 <button type="button" onclick="increment('gem-10-count')">+</button>
                 <button type="button" onclick="decrement('gem-10-count')">-</button>
                 <input type="hidden" id="gem-10-count-input" name="gem-10" value="0" />
@@ -20,7 +22,9 @@
         </div>
 
         <div>
-            <p>50 GP
+            <p>
+                <img src="{% static 'img/gem-50.png' %}" alt="50 gp gemstone" height="32" width="32">
+                50 GP
                 <button type="button" onclick="increment('gem-50-count')">+</button>
                 <button type="button" onclick="decrement('gem-50-count')">-</button>
                 <input type="hidden" id="gem-50-count-input" name="gem-50" value="0" />
@@ -29,7 +33,9 @@
         </div>
 
         <div>
-            <p>100 GP
+            <p>
+                <img src="{% static 'img/gem-100.png' %}" alt="100 gp gemstone" height="32" width="32">
+                100 GP
                 <button type="button" onclick="increment('gem-100-count')">+</button>
                 <button type="button" onclick="decrement('gem-100-count')">-</button>
                 <input type="hidden" id="gem-100-count-input" name="gem-100" value="0" />
@@ -38,7 +44,9 @@
         </div>
 
         <div>
-            <p>500 GP
+            <p>
+                <img src="{% static 'img/gem-500.png' %}" alt="500 gp gemstone" height="32" width="32">
+                500 GP
                 <button type="button" onclick="increment('gem-500-count')">+</button>
                 <button type="button" onclick="decrement('gem-500-count')">-</button>
                 <input type="hidden" id="gem-500-count-input" name="gem-500" value="0" />
@@ -47,7 +55,9 @@
         </div>
 
         <div>
-            <p>1,000 GP
+            <p>
+                <img src="{% static 'img/gem-1000.png' %}" alt="1000 gp gemstone" height="32" width="32">
+                1,000 GP
                 <button type="button" onclick="increment('gem-1000-count')">+</button>
                 <button type="button" onclick="decrement('gem-1000-count')">-</button>
                 <input type="hidden" id="gem-1000-count-input" name="gem-1000" value="0" />
@@ -56,7 +66,9 @@
         </div>
 
         <div>
-            <p>5,000 GP
+            <p>
+                <img src="{% static 'img/gem-5000.png' %}" alt="5000 gp gemstone" height="32" width="32">
+                5,000 GP
                 <button type="button" onclick="increment('gem-5000-count')">+</button>
                 <button type="button" onclick="decrement('gem-5000-count')">-</button>
                 <input type="hidden" id="gem-5000-count-input" name="gem-5000" value="0" />
