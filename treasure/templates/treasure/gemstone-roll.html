@@ -3,12 +3,18 @@
 {% load static %}
 
 {% block content %}
-    <form id="gemForm" action="/submit_gems/" method="post">
+    <form id="gemForm"
+          hx-get="{% url 'treasure:gemstone_roll' %}"
+          hx-trigger="submit"
+          hx-swap="innerHTML"
+          hx-target="#gemstone-results"
+    >
+        {% csrf_token %}
         <div>
             <p>10 GP
                 <button type="button" onclick="increment('gem-10-count')">+</button>
                 <button type="button" onclick="decrement('gem-10-count')">-</button>
-                <input type="hidden" id="gem-10-count-input" name="gem-10-count" value="0" />
+                <input type="hidden" id="gem-10-count-input" name="gem-10" value="0" />
                 <span id="gem-10-count">0</span>
             </p>
         </div>
@@ -17,7 +23,7 @@
             <p>50 GP
                 <button type="button" onclick="increment('gem-50-count')">+</button>
                 <button type="button" onclick="decrement('gem-50-count')">-</button>
-                <input type="hidden" id="gem-50-count-input" name="gem-50-count" value="0" />
+                <input type="hidden" id="gem-50-count-input" name="gem-50" value="0" />
                 <span id="gem-50-count">0</span>
             </p>
         </div>
@@ -26,7 +32,7 @@
             <p>100 GP
                 <button type="button" onclick="increment('gem-100-count')">+</button>
                 <button type="button" onclick="decrement('gem-100-count')">-</button>
-                <input type="hidden" id="gem-100-count-input" name="gem-100-count" value="0" />
+                <input type="hidden" id="gem-100-count-input" name="gem-100" value="0" />
                 <span id="gem-100-count">0</span>
             </p>
         </div>
@@ -35,7 +41,7 @@
             <p>500 GP
                 <button type="button" onclick="increment('gem-500-count')">+</button>
                 <button type="button" onclick="decrement('gem-500-count')">-</button>
-                <input type="hidden" id="gem-500-count-input" name="gem-500-count" value="0" />
+                <input type="hidden" id="gem-500-count-input" name="gem-500" value="0" />
                 <span id="gem-500-count">0</span>
             </p>
         </div>
@@ -44,7 +50,7 @@
             <p>1,000 GP
                 <button type="button" onclick="increment('gem-1000-count')">+</button>
                 <button type="button" onclick="decrement('gem-1000-count')">-</button>
-                <input type="hidden" id="gem-1000-count-input" name="gem-1000-count" value="0" />
+                <input type="hidden" id="gem-1000-count-input" name="gem-1000" value="0" />
                 <span id="gem-1000-count">0</span>
             </p>
         </div>
@@ -53,7 +59,7 @@
             <p>5,000 GP
                 <button type="button" onclick="increment('gem-5000-count')">+</button>
                 <button type="button" onclick="decrement('gem-5000-count')">-</button>
-                <input type="hidden" id="gem-5000-count-input" name="gem-5000-count" value="0" />
+                <input type="hidden" id="gem-5000-count-input" name="gem-5000" value="0" />
                 <span id="gem-5000-count">0</span>
             </p>
         </div>
@@ -65,6 +71,10 @@
     <div id="gemstone-totals">
         <h2>Total Gems: <span id="gemstone-count">0</span></h2>
         <h2>Total Value: <span id="gemstone-value">0</span> gp</h2>
+    </div>
+
+    <div id="gemstone-results">
+
     </div>
 
     <script src="{% static 'js/gemstone-roller.js' %}"></script>

@@ -60,6 +60,14 @@ class GemstoneQueryMixin(object):
 
     def sorted_query(self, *, sort_by: str, order: str):
 
+        # Int sorting (value is a model field which is hardcoded here)
+        if sort_by == 'value' and order == 'desc':
+            return self.order_by('-' + sort_by)
+
+        elif sort_by == 'value':
+            return self.order_by(sort_by)
+
+        # String sorting
         if order == 'desc':
             return self.order_by(Lower(sort_by).desc())
 
@@ -76,15 +84,18 @@ class GemstoneQueryMixin(object):
             Q(color__icontains=search_term)
         )
 
+    def x(self, param: str, value: int):
+        return self.filter(value=value).as_manager()
 
-class GemstoneQueryQuerySet(QuerySet, GemstoneQueryMixin):
+
+class GemstoneQuerySet(QuerySet, GemstoneQueryMixin):
     pass
 
 
 class GemstoneManager(models.Manager):
 
     def get_queryset(self):
-        return GemstoneQueryQuerySet(self.model, using=self._db)
+        return GemstoneQuerySet(self.model, using=self._db)
 
 
 class Gemstone(models.Model):

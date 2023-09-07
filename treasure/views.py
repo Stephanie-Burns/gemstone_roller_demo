@@ -1,4 +1,6 @@
 
+import random
+
 from django.db import transaction
 from django.db.models.functions import Lower
 from django.http import HttpResponse, HttpResponseNotAllowed
@@ -121,5 +123,18 @@ def gemstone_search_table(request):
 
     return HttpResponse(status=200)
 
+
 def gemstone_roll(request):
+
+    if request.headers.get('HX-Request'):
+        gemstones = []
+        for gem, count in request.GET.items():
+
+            if gem.startswith('gem') and int(count) > 0:
+
+                gem_objects = models.Gemstone.objects.filter(value__exact=gem.split('-')[1]).order_by('name')
+                gemstones.extend(random.choices(gem_objects, k=int(count)))
+
+        return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
+
     return render(request, 'treasure/gemstone-roll.html')

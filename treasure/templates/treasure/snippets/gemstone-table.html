@@ -4,47 +4,47 @@
 {% if gemstones %}
     <table id="gemstoneTable">
         <thead>
-        <tr>
-            <th>
-                Icon
-            </th>
-            <th
-                hx-get="{% url 'treasure:gemstone_sorted_table' %}"
-                hx-vals='{"sort_by": "name"}'
-                hx-target="#gemstoneTable"
-                hx-swap="outerHTML"
-                role="button"
-            >
-                Name
-            </th>
-            <th
-                hx-get="{% url 'treasure:gemstone_sorted_table' %}"
-                hx-vals='{"sort_by": "value"}'
-                hx-target="#gemstoneTable"
-                hx-swap="outerHTML"
-                role="button"
-            >
-                Value
-            </th>
-            <th
-                hx-get="{% url 'treasure:gemstone_sorted_table' %}"
-                hx-vals='{"sort_by": "clarity"}'
-                hx-target="#gemstoneTable"
-                hx-swap="outerHTML"
-                role="button"
-            >
-                Clarity
-            </th>
-            <th
-                hx-get="{% url 'treasure:gemstone_sorted_table' %}"
-                hx-vals='{"sort_by": "color"}'
-                hx-target="#gemstoneTable"
-                hx-swap="outerHTML"
-                role="button"
-            >
-                Color
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    Icon
+                </th>
+                <th
+                    hx-get="{% url 'treasure:gemstone_sorted_table' %}"
+                    hx-vals='{"sort_by": "name"}'
+                    hx-target="#gemstoneTable"
+                    hx-swap="outerHTML"
+                    role="button"
+                >
+                    Name
+                </th>
+                <th
+                    hx-get="{% url 'treasure:gemstone_sorted_table' %}"
+                    hx-vals='{"sort_by": "value"}'
+                    hx-target="#gemstoneTable"
+                    hx-swap="outerHTML"
+                    role="button"
+                >
+                    Value
+                </th>
+                <th
+                    hx-get="{% url 'treasure:gemstone_sorted_table' %}"
+                    hx-vals='{"sort_by": "clarity"}'
+                    hx-target="#gemstoneTable"
+                    hx-swap="outerHTML"
+                    role="button"
+                >
+                    Clarity
+                </th>
+                <th
+                    hx-get="{% url 'treasure:gemstone_sorted_table' %}"
+                    hx-vals='{"sort_by": "color"}'
+                    hx-target="#gemstoneTable"
+                    hx-swap="outerHTML"
+                    role="button"
+                >
+                    Color
+                </th>
+            </tr>
         </thead>
         <tbody>
             {% for gemstone in gemstones %}
