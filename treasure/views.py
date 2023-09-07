@@ -2,7 +2,6 @@
 import random
 
 from django.db import transaction
-from django.db.models.functions import Lower
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, render, redirect
 
@@ -16,7 +15,7 @@ def index(request):
 
 
 def gemstone_index(request):
-    gemstones = models.Gemstone.objects.all().order_by('value')
+    gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
     return render(request, 'treasure/gemstone-index.html', {'gemstones': gemstones})
 
 
@@ -42,7 +41,8 @@ def gemstone_create(request):
 
         form = forms.GemstoneForm()
 
-    return render(request, 'treasure/gemstone-create.html', {'form': form, 'icon_url': default_icon_url})
+    context = {'form': form, 'icon_url': default_icon_url}
+    return render(request, 'treasure/gemstone-create.html', context)
 
 
 def gemstone_view(request, gemstone_id):
@@ -87,22 +87,12 @@ def gemstone_delete(request, gemstone_id):
 
 
 def gemstone_all(request):
-    gemstones = models.Gemstone.objects.all().order_by('value')
+    gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
     return render(request, 'treasure/gemstone-all.html', {'gemstones': gemstones})
 
 
-def gemstone_sorted_table(request):
-
-    sort_by, order = services.get_gemstone_sort_order_from_session(request)
-
-    gemstones = models.Gemstone.objects\
-        .get_queryset()\
-        .sorted_query(sort_by=sort_by, order=order)
-
-    return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
-
-
 def gemstone_search(request):
+
     return render(request, 'treasure/gemstone-search.html')
 
 
@@ -112,12 +102,11 @@ def gemstone_search_table(request):
 
     if search_term:
 
-        sort_by, order = services.get_gemstone_sort_order_from_session(request)
-
-        gemstones = models.Gemstone.objects \
-            .get_queryset() \
-            .sorted_query(sort_by=sort_by, order=order) \
+        gemstones = (
+            models.Gemstone.objects
             .search_for(search_term=search_term)
+            .order_by(models.GEMSTONE_DEFAULT_ORDER)
+        )
 
         return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
 
@@ -133,7 +122,11 @@ def gemstone_roll(request):
 
             if gem.startswith('gem') and int(count) > 0:
 
-                gem_objects = models.Gemstone.objects.filter(value__exact=gem.split('-')[1]).order_by('name')
+                gem_objects = (
+                    models.Gemstone.objects
+                    .filter(value__exact=gem.split('-')[1])
+                    .order_by(models.GEMSTONE_DEFAULT_ORDER)
+                )
                 gemstones.extend(random.choices(gem_objects, k=int(count)))
 
         return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})

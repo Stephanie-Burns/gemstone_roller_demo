@@ -56,22 +56,7 @@ class GemstoneIcon(models.Model):
         self.name = slugify(f'gemstone-icon_{gemstone_name}_{file_hash}')
 
 
-class GemstoneQueryMixin(object):
-
-    def sorted_query(self, *, sort_by: str, order: str):
-
-        # Int sorting (value is a model field which is hardcoded here)
-        if sort_by == 'value' and order == 'desc':
-            return self.order_by('-' + sort_by)
-
-        elif sort_by == 'value':
-            return self.order_by(sort_by)
-
-        # String sorting
-        if order == 'desc':
-            return self.order_by(Lower(sort_by).desc())
-
-        return self.order_by(Lower(sort_by))
+class GemstoneManager(models.Manager):
 
     def search_for(self, *, search_term: str):
 
@@ -83,19 +68,6 @@ class GemstoneQueryMixin(object):
             Q(clarity__name__icontains=search_term) |
             Q(color__icontains=search_term)
         )
-
-    def x(self, param: str, value: int):
-        return self.filter(value=value).as_manager()
-
-
-class GemstoneQuerySet(QuerySet, GemstoneQueryMixin):
-    pass
-
-
-class GemstoneManager(models.Manager):
-
-    def get_queryset(self):
-        return GemstoneQuerySet(self.model, using=self._db)
 
 
 class Gemstone(models.Model):
