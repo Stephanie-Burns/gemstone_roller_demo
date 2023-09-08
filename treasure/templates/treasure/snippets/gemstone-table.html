@@ -3,28 +3,32 @@
 {% load static %}
 
 {% if gemstones %}
-    <table id="gemstoneTable" class="table gemstone-table">
-       <thead>
-            <tr>
-                <th class="gemstone-th"><img src="{% static 'img/gemstone-default.png' %}" alt="Default Gemstone" height="32" width="32"> </th>
-                <th class="gemstone-th" role="button" onclick="sortTable('name', 'string')">Name</th>
-                <th class="gemstone-th" role="button" onclick="sortTable('value', 'number')">Value</th>
-                <th class="gemstone-th" role="button" onclick="sortTable('clarity', 'string')">Clarity</th>
-                <th class="gemstone-th" role="button" onclick="sortTable('color', 'string')">Color</th>
-            </tr>
-       </thead>
-       <tbody>
-           {% for gemstone in gemstones %}
-               <tr class="gemstone-tr" onclick="window.location='{% url 'treasure:gemstone_view' gemstone.id %}';">
-                   <td><img src="{{ gemstone.icon.image.url }}" alt="{{ gemstone.name }}" height="32" width="32"></td>
-                   <td>{{ gemstone.name }}</td>
-                   <td>{{ gemstone.value|intcomma }} GP</td>
-                   <td>{{ gemstone.clarity|capfirst }}</td>
-                   <td>{{ gemstone.color|capfirst }}</td>
-               </tr>
-           {% endfor %}
-       </tbody>
-    </table>
+    <div class="outer-content-container">
+        <div class="table-responsive inner-table-container">
+            <table id="gemstoneTable" class="table gemstone-table">
+                <thead class="gemstone-thead">
+                    <tr>
+                        <th><img src="{% static 'img/gemstone-default.png' %}" alt="Default Gemstone" height="32" width="32"> </th>
+                        <th role="button" onclick="sortTable('name', 'string')">Name</th>
+                        <th role="button" onclick="sortTable('value', 'number')">Value</th>
+                        <th role="button" onclick="sortTable('clarity', 'string')">Clarity</th>
+                        <th role="button" onclick="sortTable('color', 'string')">Color</th>
+                    </tr>
+                </thead>
+                <tbody class="gemstone-tbody">
+                {% for gemstone in gemstones %}
+                    <tr class="gemstone-tr" onclick="window.location='{% url 'treasure:gemstone_view' gemstone.id %}';">
+                        <td><img src="{{ gemstone.icon.image.url }}" alt="{{ gemstone.name }}" height="32" width="32"></td>
+                        <td class="gemstone-td">{{ gemstone.name }}</td>
+                        <td>{{ gemstone.value|intcomma }} GP</td>
+                        <td>{{ gemstone.clarity|capfirst }}</td>
+                        <td>{{ gemstone.color|capfirst }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script src="{% static 'js/sort-gemstone-table.js' %}"></script>
 

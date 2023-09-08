@@ -1,4 +1,5 @@
 
+/* === Form Styles === */
 input, textarea, select {
     background-color: #50557c;  /* Background color */
     color: #ff9b71;  /* Text color */
@@ -8,19 +9,76 @@ label {
     color: #e84855;
 }
 
+
+/* === Document Wrapper Styles === */
+.outer-content-container {
+    border-radius: 6px;
+    background-color: #50557c;
+    padding: 10px 10px 10px 10px;
+    margin: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.inner-content-container {
+    color: #ff9b71;
+    border-radius: 6px;
+    background-color: #2d3047;
+    border: 2px solid #1b998b;
+    padding: 15px 15px 15px 15px;
+}
+
+
+/* === Table Styles === */
+.inner-table-container {
+    border-radius: 6px;
+    margin-bottom: -15px;
+}
+
 .table {
     color: #ff9b71;
-    border: 2px solid #1b998b;
+}
+
+.gemstone-table {
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.gemstone-table-container {
+    border-radius: 6px;
+    background-color: #50557c;
+    padding: 15px 15px 1px 15px;
+    margin: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.gemstone-tbody {
+    padding: 5px;
+    margin: 10px;
+}
+
+.gemstone-thead {
+    color: #e84855;
+    background-color: #2d3047;
+    border-top: 2px solid #2d3047;
+    border-bottom: 3px solid #1b998b;
 }
 
 .gemstone-th:hover {
-    background-color: #50557c;
+    color: #ffffff;
+    cursor: pointer;
 }
 
-.gemstone-th {
+.gemstone-tr {
     cursor: pointer;
-    color: #e84855;
-    border-top: none;
+    vertical-align: middle;
+    background-color: #2d3047;
+    border-left: 2px solid #1b998b;
+    border-right: 2px solid #1b998b;
+}
+
+.gemstone-tr:hover {
+    color: #ffffff;
+    background-color: #50557c;
 }
 
 td {
@@ -29,19 +87,16 @@ td {
     border-right: none;
 }
 
-thead {
-    border-bottom: 3px solid #1b998b;
-}
-.gemstone-tr:hover {
-    background-color: #50557c;
-}
-.gemstone-tr {
-    cursor: pointer;
-}
-
-.gemstone-table td, .gemstone-table th {
+.gemstone-table td, th {
     vertical-align: middle;
 }
+
+
+/* === Document Styles === */
+
+/** {*/
+/*    border: 1px solid red !important;*/
+/*}*/
 
 body {
     background-color: #2d3047;
@@ -62,25 +117,25 @@ em {
 
 /* === Navbar Styles === */
 
-/* General navbar styling */
 .custom-navbar {
     background-color: #2d3047;
     border: 2px solid #1b998b;
     border-bottom: 3px solid #1b998b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    /*background-color: #50557c;*/
+    /*border: 2px solid #50557c;*/
+    /*border-bottom: 3px solid #50557c;*/
 }
 
-/* Text colors for the brand and links */
 .custom-navbar-brand, .custom-nav-link {
     color: #1b998b;
 }
 
-/* Active state */
 .custom-active .custom-nav-link,
 .custom-navbar-brand.custom-active {
     color: #40ddcb;
 }
 
-/* Hover state */
 .custom-nav-link:hover,
 .custom-navbar-brand:hover {
     color: #ffffff;
