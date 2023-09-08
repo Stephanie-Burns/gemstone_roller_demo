@@ -1,13 +1,19 @@
 
-<h1>Edit Gemstone</h1>
+{% include 'base.html' %}
 
-{% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url gemstone_id=gemstone_id %}
+{% block content %}
+    <div class="container">
+        <h1>Edit Gemstone</h1>
 
-<form
-    action="{% url 'treasure:gemstone_delete' gemstone_id %}"
-    method="post"
-    onsubmit="return confirm('Warning: this cannot be undone. Are you sure you want to delete this gemstone?');"
->
-    {% csrf_token %}
-    <input type="submit" value="Delete Gemstone">
-</form>
+        {% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url gemstone_id=gemstone_id %}
+
+        <form
+                action="{% url 'treasure:gemstone_delete' gemstone_id %}"
+                method="post"
+                onsubmit="return confirm('Warning: this cannot be undone. Are you sure you want to delete this gemstone?');"
+        >
+            {% csrf_token %}
+            <input type="submit" value="Delete Gemstone">
+        </form>
+    </div>
+{% endblock %}

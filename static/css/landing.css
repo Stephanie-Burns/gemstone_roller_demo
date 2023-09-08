@@ -1,3 +1,13 @@
+
+input, textarea, select {
+    background-color: #50557c;  /* Background color */
+    color: #ff9b71;  /* Text color */
+}
+
+label {
+    color: #e84855;
+}
+
 .table {
     color: #ff9b71;
     border: 2px solid #1b998b;
