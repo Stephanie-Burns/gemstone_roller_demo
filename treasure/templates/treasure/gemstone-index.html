@@ -3,15 +3,6 @@
 
 {% block content %}
 
-    <h1>Gemstone Index</h1>
-    <a href="{% url 'treasure:index' %}">Treasure Index</a>
-    <br><br>
-    <a href="{% url 'treasure:gemstone_create' %}">Create</a>
-    <br>
-    <a href="{% url 'treasure:gemstone_search' %}">Search</a>
-    <br>
-    <a href="{% url 'treasure:gemstone_roll' %}">Roll</a>
-
     {% include 'treasure/gemstone-all.html' with gemstones=gemstones %}
 
 {% endblock %}

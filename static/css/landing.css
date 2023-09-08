@@ -1,13 +1,108 @@
-.gemstone-th:hover {
-    background-color: #f2f2f2;
-}
-.gemstone-th {
-    cursor: pointer;
+.table {
+    color: #ff9b71;
+    border: 2px solid #1b998b;
 }
 
+.gemstone-th:hover {
+    background-color: #50557c;
+}
+
+.gemstone-th {
+    cursor: pointer;
+    color: #e84855;
+    border-top: none;
+}
+
+td {
+    border: 1px solid #1b998b;
+    border-left: none;
+    border-right: none;
+}
+
+thead {
+    border-bottom: 3px solid #1b998b;
+}
 .gemstone-tr:hover {
-    background-color: #f2f2f2;
+    background-color: #50557c;
 }
 .gemstone-tr {
     cursor: pointer;
+}
+
+.gemstone-table td, .gemstone-table th {
+    vertical-align: middle;
+}
+
+body {
+    background-color: #2d3047;
+    color: #ff9b71;
+}
+
+h1, h2 {
+    color: #1b998b;
+}
+
+strong {
+    color: #e84855;
+}
+
+em {
+    color: #1b998b;
+}
+
+/* === Navbar Styles === */
+
+/* General navbar styling */
+.custom-navbar {
+    background-color: #2d3047;
+    border: 2px solid #1b998b;
+    border-bottom: 3px solid #1b998b;
+}
+
+/* Text colors for the brand and links */
+.custom-navbar-brand, .custom-nav-link {
+    color: #1b998b;
+}
+
+/* Active state */
+.custom-active .custom-nav-link,
+.custom-navbar-brand.custom-active {
+    color: #40ddcb;
+}
+
+/* Hover state */
+.custom-nav-link:hover,
+.custom-navbar-brand:hover {
+    color: #ffffff;
+}
+
+/* === Icon Colors === */
+
+.icon-yellow {
+    color: #fffd82;
+}
+
+.icon-red {
+    color: #e84855;
+}
+
+/*ScrollBars*/
+
+/* For Webkit browsers like Chrome and Safari */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #333; /* Dark grey for the thumb (scrollbar handle) */
+    /*border-radius: 6px;*/
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Slightly lighter grey when hovering over the thumb */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #1a1a1a; /* Very dark grey for the track (scrollbar background) */
+    /*border-radius: 6px;*/
 }
