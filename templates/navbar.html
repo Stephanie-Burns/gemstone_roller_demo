@@ -1,47 +1,47 @@
 
-<div>
     <nav class="navbar navbar-expand-md custom-navbar mb-5">
-        <div class="container-fluid">
-            <a class="navbar-brand custom-navbar-brand {% if request.resolver_match.url_name == 'gemstone_index' %}custom-active{% endif %}" href="{% url 'treasure:gemstone_index' %}">
-                <i class="fas fa-coins icon-yellow"></i> Home
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {% if request.resolver_match.url_name == 'gemstone_create' %}custom-active{% endif %}">
-                        <a class="nav-link custom-nav-link" href="{% url 'treasure:gemstone_create' %}">
-                            <i class="far fa-gem fa-sm icon-red"></i> Create New
-                        </a>
-                    </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'gemstone_roll' %}custom-active{% endif %}">
-                        <a class="nav-link custom-nav-link" href="{% url 'treasure:gemstone_roll' %}">
-                            <i class="fas fa-dice-d20 fa-sm icon-red"></i> Roll
-                        </a>
-                    </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'gemstone_search' %}custom-active{% endif %}">
-                        <a class="nav-link custom-nav-link" href="{% url 'treasure:gemstone_search' %}">
-                            <i class="fas fa-search fa-sm icon-red"></i> Search
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link" href="{% url 'logout' %}">
-                                <i class="fas fa-sign-out-alt icon-red"></i> Logout, {{ user.username|capfirst }}
+        <div class="container-fluid navbar-wrapper">
+            <div class="container-fluid">
+                <a class="navbar-brand custom-navbar-brand {% if request.resolver_match.url_name == 'gemstone_index' %}custom-active{% endif %}" href="{% url 'treasure:gemstone_index' %}">
+                    <i class="fas fa-coins icon-yellow"></i> Home
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item {% if request.resolver_match.url_name == 'gemstone_create' %}custom-active{% endif %}">
+                            <a class="nav-link custom-nav-link" href="{% url 'treasure:gemstone_create' %}">
+                                <i class="far fa-gem fa-sm icon-red"></i> Create New
                             </a>
                         </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link custom-nav-link" href="{% url 'login' %}">
-                                <i class="fas fa-sign-in-alt icon-red"></i> Login
+                        <li class="nav-item {% if request.resolver_match.url_name == 'gemstone_roll' %}custom-active{% endif %}">
+                            <a class="nav-link custom-nav-link" href="{% url 'treasure:gemstone_roll' %}">
+                                <i class="fas fa-dice-d20 fa-sm icon-red"></i> Roll
                             </a>
                         </li>
-                    {% endif %}
-                </ul>
+                        <li class="nav-item {% if request.resolver_match.url_name == 'gemstone_search' %}custom-active{% endif %}">
+                            <a class="nav-link custom-nav-link" href="{% url 'treasure:gemstone_search' %}">
+                                <i class="fas fa-search fa-sm icon-red"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link custom-nav-link" href="{% url 'logout' %}">
+                                    <i class="fas fa-sign-out-alt icon-red"></i> Logout, {{ user.username|capfirst }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link custom-nav-link" href="{% url 'login' %}">
+                                    <i class="fas fa-sign-in-alt icon-red"></i> Login
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
-</div>
