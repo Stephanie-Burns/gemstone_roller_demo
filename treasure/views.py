@@ -1,9 +1,11 @@
 
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
 
 from . import forms
 from . import models
@@ -19,6 +21,7 @@ def gemstone_index(request):
     return render(request, 'treasure/gemstone-index.html', {'gemstones': gemstones})
 
 
+@login_required
 @transaction.atomic
 def gemstone_create(request):
 
@@ -49,9 +52,10 @@ def gemstone_view(request, gemstone_id):
     gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
     return render(request, 'treasure/gemstone-view.html', {'gemstone': gemstone})
 
-
+@login_required
 @transaction.atomic
 def gemstone_edit(request, gemstone_id):
+
     gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
 
     if request.method == 'POST':
@@ -74,7 +78,7 @@ def gemstone_edit(request, gemstone_id):
     context = {'form': form, 'icon_url': icon_url, 'gemstone_id': gemstone_id}
     return render(request, 'treasure/gemstone-edit.html', context)
 
-
+@login_required
 def gemstone_delete(request, gemstone_id):
 
     if request.method != 'POST':
@@ -92,13 +96,19 @@ def gemstone_all(request):
 
 
 def gemstone_search(request):
-
     gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
-
     return render(request, 'treasure/gemstone-search.html', {'gemstones': gemstones})
 
 
 def gemstone_search_table(request):
+
+    # TODO const dict and function(...EXPECTED_REFERER, redirect_url)
+    referer = request.headers.get('Referer')
+    expected_referer = request.build_absolute_uri(reverse('treasure:gemstone_search'))
+    htmx_request = request.headers.get('HX-Request')
+
+    if referer != expected_referer or not htmx_request:
+        return redirect('treasure:gemstone_search')
 
     search_term = request.GET.get('q')
 
@@ -113,7 +123,6 @@ def gemstone_search_table(request):
         return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
 
     gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
-    # return HttpResponse(status=200)
 
     return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
 

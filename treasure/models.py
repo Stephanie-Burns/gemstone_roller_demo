@@ -22,7 +22,7 @@ GEMSTONE_ALLOWED_SEARCH_FIELDS = [
 class GemstoneClarity(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Gemsonte clarities'
+        verbose_name_plural = 'Gemstone clarities'
 
     name = models.CharField(max_length=128)
 

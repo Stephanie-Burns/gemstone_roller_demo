@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-i)lqj7or^tf#2*_$m8q^!v4$o7mis%2vozh#%358d7h6z))0e%
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+LOGIN_REDIRECT_URL = '/treasure/gemstone'
+LOGOUT_REDIRECT_URL = '/treasure'
 
 # Application definition
 

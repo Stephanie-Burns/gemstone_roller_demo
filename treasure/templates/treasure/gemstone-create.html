@@ -1,4 +1,8 @@
 
-<h1>Create Gemstone</h1>
+{% extends 'base.html' %}
 
-{% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url %}
+{% block content %}
+    <h1>Create Gemstone</h1>
+
+    {% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url %}
+{% endblock %}

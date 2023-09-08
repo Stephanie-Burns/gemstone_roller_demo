@@ -1,3 +1,7 @@
 
-<h1>Treasure Index</h1>
-<a href="{% url 'treasure:gemstone_index' %}">Gemstone Index</a>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Treasure Index</h1>
+    <a href="{% url 'treasure:gemstone_index' %}">Gemstone Index</a>
+{% endblock %}

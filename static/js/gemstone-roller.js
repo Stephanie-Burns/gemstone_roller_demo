@@ -30,10 +30,16 @@ function decrement(id) {
 }
 
 function clearCounts() {
+    // Clear gem counts and input values
     gemIds.forEach(id => {
         document.getElementById(id).innerText = '0';
         document.getElementById(id + '-input').value = '0';
     });
+
+    // Clear the gemstone-results div
+    document.getElementById('gemstone-results').innerHTML = "";
+
+    // Recalculate totals
     calculate();
 }
 
