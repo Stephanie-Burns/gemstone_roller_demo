@@ -1,20 +1,45 @@
 
+/* === Document Styles === */
+/** {*/
+/*    border: 1px solid red !important;*/
+/*}*/
+
+body {
+    background-color: #2d3047;
+    color: #ff9b71;
+    margin-top: 100px;
+
+}
+
+h1, h2 {
+    color: #1b998b;
+}
+
+strong {
+    color: #e84855;
+}
+
+em {
+    color: #1b998b;
+}
+
+
 /* === Document Wrapper Styles === */
 .outer-content-container {
-    border-radius: 6px;
     background-color: #50557c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
     padding: 10px 10px 10px 10px;
     margin: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
 }
 
 .inner-content-container {
     color: #ff9b71;
-    border-radius: 6px;
     background-color: #2d3047;
     border: 2px solid #1b998b;
-    padding: 15px 15px 15px 15px;
     box-shadow: inset 0px 4px 6px -1px rgba(0, 0, 0, 0.2);
+    padding: 15px 15px 15px 15px;
+    border-radius: 6px;
 }
 
 .inner-shadow {
@@ -42,17 +67,21 @@ label {
     color: #ff9b71;
 }
 
+td:nth-child(n+3):nth-child(-n+4) {
+    color: #40ddcb;
+}
+
 .gemstone-table {
     border-radius: 6px;
     padding: 2px;
 }
 
 .gemstone-table-container {
-    border-radius: 6px;
     background-color: #50557c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
     padding: 15px 15px 1px 15px;
     margin: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
 }
 
 .gemstone-tbody {
@@ -73,12 +102,12 @@ label {
 }
 
 .gemstone-tr {
-    cursor: pointer;
-    vertical-align: middle;
     background-color: #2d3047;
     border-left: 2px solid #1b998b;
     border-right: 2px solid #1b998b;
     box-shadow: inset 0px 4px 6px -1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    vertical-align: middle;
 }
 
 .gemstone-tr:hover {
@@ -97,41 +126,19 @@ td {
 }
 
 
-/* === Document Styles === */
-/** {*/
-/*    border: 1px solid red !important;*/
-/*}*/
-
-body {
-    background-color: #2d3047;
-    color: #ff9b71;
-}
-
-h1, h2 {
-    color: #1b998b;
-}
-
-strong {
-    color: #e84855;
-}
-
-em {
-    color: #1b998b;
-}
-
-
 /* === Navbar Styles === */
 .navbar-wrapper {
-    padding: 1px;
+    background-color: #2d3047;
     border: 2px solid #1b998b;
     box-shadow: inset 0px 4px 6px -1px rgba(0, 0, 0, 0.2);
+    padding: 1px;
 }
 
 .custom-navbar {
-    padding: 1px;
-    background-color: #2d3047;
+    background-color: #50557c;
     border: 2px solid #50557c;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 1px;
 }
 
 .custom-navbar-brand, .custom-nav-link {
@@ -165,13 +172,18 @@ em {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #333;
+    background-color: #50557c;
+    border: 1px solid #1b998b;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+    background-color: #1b998b;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #1a1a1a;
+    background-color: #2d3047;
+    border: 1px solid #1b998b;
+    padding-top: 60px;
+    border-bottom: none;
+    border-top: none;
 }
