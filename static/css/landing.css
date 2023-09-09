@@ -46,6 +46,13 @@ em {
     box-shadow: inset 0px 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
+.citation {
+    color: #1b998b;
+    font-size: small;
+    font-style: italic;
+    text-align: end;
+}
+
 /* === Form Styles === */
 input, textarea, select {
     background-color: #50557c;
@@ -68,7 +75,7 @@ label {
 }
 
 td:nth-child(n+3):nth-child(-n+4) {
-    color: #40ddcb;
+    color: #40ddcb;  /*Table rows: name & color */
 }
 
 .gemstone-table {
