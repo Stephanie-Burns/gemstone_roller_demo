@@ -1,0 +1,15 @@
+
+{% load static %}
+{% load humanize %}
+
+<div class="gemstone-counter-item d-flex align-items-center">
+    <img src="{% static img_src %}" alt="{{ gem_value }} GP Gemstone" height="32" width="32" class="gemstone-counter-icon">
+    <span class="gemstone-counter-text">{{ gem_value|intcomma }}{{ pad }}</span>
+    <div class="gemstone-counter-buttons d-flex align-items-center">
+        <button class="my-btn my-btn-primary" type="button" onclick="increment('gem-{{ gem_value }}-count')"><i class="fas fa-plus fa-sm"></i></button>
+        <strong><span id="gem-{{ gem_value }}-count" class="gemstone-counter-count">0</span></strong>
+        <button class="my-btn my-btn-primary" type="button" onclick="decrement('gem-{{ gem_value }}-count')"><i class="fas fa-minus fa-sm"></i></button>
+    </div>
+    <input type="hidden" id="gem-{{ gem_value }}-count-input" name="gem-{{ gem_value }}" value="0" />
+</div>
+

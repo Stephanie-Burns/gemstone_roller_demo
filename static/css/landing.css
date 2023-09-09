@@ -31,6 +31,14 @@ em {
     padding: 10px 10px 10px 10px;
     margin: 5px;
     border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.outer-content-small-border {
+    border: 2px;
+    padding: 2px;
+    vertical-align: middle;
 }
 
 .inner-content-container {
@@ -40,6 +48,7 @@ em {
     box-shadow: inset 0px 4px 6px -1px rgba(0, 0, 0, 0.2);
     padding: 15px 15px 15px 15px;
     border-radius: 6px;
+    flex-grow: 1;
 }
 
 .inner-shadow {
@@ -52,6 +61,64 @@ em {
     font-style: italic;
     text-align: end;
 }
+
+.row-shrink {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+
+
+.gemstone-counter-item {
+    display: flex;
+    align-items: center;
+}
+
+.gemstone-counter-icon {
+    margin-right: 10px;
+}
+
+.gemstone-counter-text {
+    /*color: #fffd82;*/
+    margin-right: 10px;
+}
+
+.gemstone-counter-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.gemstone-counter-buttons button {
+    margin-right: 5px;
+}
+
+.gemstone-counter-count {
+    color: #ff9b71;
+    /*color: #fffd82;*/
+    /*    padding-left: 10px;*/
+    /*padding-right: 10px;*/
+}
+
+.gemstone-counter-buttons .gemstone-counter-count {
+    margin: 0 5px;
+}
+
+.gemstone-counter-buttons button:last-child {
+    margin-left: 5px;
+
+}
+
+
+.vertical-spacer {
+    width: 4px;
+    border: 1px solid #50557c;
+    background-color: #1b998b;
+    margin-left: 15px;
+    margin-right: 15px;
+    align-self: stretch;
+}
+
+
 
 /* === Form Styles === */
 input, textarea, select {
@@ -193,4 +260,22 @@ td {
     padding-top: 60px;
     border-bottom: none;
     border-top: none;
+}
+
+.my-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Additional colors */
+.my-btn-primary {
+    background-color: transparent;
+    color: #fffd82;
+    color: #ffffff;
+    color: #e84855;
+    border: 2px solid #1b998b;
 }

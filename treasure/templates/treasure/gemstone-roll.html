@@ -3,83 +3,97 @@
 {% load static %}
 
 {% block content %}
-    <section class="container">
-        <form id="gemForm"
-              hx-get="{% url 'treasure:gemstone_roll' %}"
-              hx-trigger="submit"
-              hx-swap="innerHTML"
-              hx-target="#gemstone-results"
-        >
-            {% csrf_token %}
-            <div>
-                <p>
-                    <img src="{% static 'img/gem-10.png' %}" alt="10 gp gemstone" height="32" width="32">
-                    10 GP
-                    <button type="button" onclick="increment('gem-10-count')">+</button>
-                    <button type="button" onclick="decrement('gem-10-count')">-</button>
-                    <input type="hidden" id="gem-10-count-input" name="gem-10" value="0" />
-                    <span id="gem-10-count">0</span>
+     <section class="container">
+
+     <div class="container">
 
 
-                    <img src="{% static 'img/gem-500.png' %}" alt="500 gp gemstone" height="32" width="32">
-                    500 GP
-                    <button type="button" onclick="increment('gem-500-count')">+</button>
-                    <button type="button" onclick="decrement('gem-500-count')">-</button>
-                    <input type="hidden" id="gem-500-count-input" name="gem-500" value="0" />
-                    <span id="gem-500-count">0</span>
+
+
+     <div class="row">
+         <div class="outer-content-container col order-2 order-lg-1">
+             <div class="inner-content-container">
+                 <form id="gemForm"
+                       hx-get="{% url 'treasure:gemstone_roll' %}"
+                       hx-trigger="submit"
+                       hx-swap="innerHTML"
+                       hx-target="#gemstone-results"
+                 >
+                     {% csrf_token %}
+                     <div class="outer-content-container outer-content-small-border">
+                         <div class="inner-content-container">
+                             <div class="d-flex flex-row">
+                                 <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                                     {% include 'treasure/partials/gemstone-counter.html' with gem_value=10 img_src='img/gem-10.png' pad='&nbsp' %}
+                                 </div>
+
+                                 <div class="vertical-spacer"></div>
+
+                                 <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                                     {% include 'treasure/partials/gemstone-counter.html' with gem_value=500 img_src='img/gem-500.png' pad='&nbsp&nbsp'%}
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="outer-content-container outer-content-small-border">
+                         <div class="inner-content-container">
+                             <div class="d-flex flex-row">
+                                 <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                                     {% include 'treasure/partials/gemstone-counter.html' with gem_value=50 img_src='img/gem-50.png' pad='&nbsp&nbsp' %}
+                                 </div>
+
+                                 <div class="vertical-spacer "></div>
+
+                                 <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                                     {% include 'treasure/partials/gemstone-counter.html' with gem_value=1000 img_src='img/gem-1000.png' %}
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="outer-content-container outer-content-small-border">
+                         <div class="inner-content-container">
+                             <div class="d-flex flex-row">
+                                 <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                                     {% include 'treasure/partials/gemstone-counter.html' with gem_value=100 img_src='img/gem-100.png' %}
+                                 </div>
+
+                                 <div class="vertical-spacer "></div>
+
+                                 <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+                                     {% include 'treasure/partials/gemstone-counter.html' with gem_value=5000 img_src='img/gem-5000.png' %}
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                    <p>
+                        <button type="submit">Roll</button>
+                     Gems: <span id="gemstone-count">0</span> |
+                        Value: <span id="gemstone-value">0</span>
+                     <button type="button" onclick="clearCounts()">Clear</button>
+
+                    </p>
+
+                </form>
+             </div>
+         </div>
+         <div class="outer-content-container col order-1 order-lg-2">
+             <div class="inner-content-container">
+                 <h2>Roll for Gemstones</h2>
+                 <p>
+                    Pick your gemstones across different GP categories and unveil your epic loot below.
                 </p>
-            </div>
+             </div>
+         </div>
+     </div>
 
-            <div>
-                <p>
-                    <img src="{% static 'img/gem-50.png' %}" alt="50 gp gemstone" height="32" width="32">
-                    50 GP
-                    <button type="button" onclick="increment('gem-50-count')">+</button>
-                    <button type="button" onclick="decrement('gem-50-count')">-</button>
-                    <input type="hidden" id="gem-50-count-input" name="gem-50" value="0" />
-                    <span id="gem-50-count">0</span>
+     </div>
 
 
-                    <img src="{% static 'img/gem-1000.png' %}" alt="1000 gp gemstone" height="32" width="32">
-                    1,000 GP
-                    <button type="button" onclick="increment('gem-1000-count')">+</button>
-                    <button type="button" onclick="decrement('gem-1000-count')">-</button>
-                    <input type="hidden" id="gem-1000-count-input" name="gem-1000" value="0" />
-                    <span id="gem-1000-count">0</span>
-                </p>
-            </div>
+ </section>
 
-            <div>
-                <p>
-                    <img src="{% static 'img/gem-100.png' %}" alt="100 gp gemstone" height="32" width="32">
-                    100 GP
-                    <button type="button" onclick="increment('gem-100-count')">+</button>
-                    <button type="button" onclick="decrement('gem-100-count')">-</button>
-                    <input type="hidden" id="gem-100-count-input" name="gem-100" value="0" />
-                    <span id="gem-100-count">0</span>
+    <div id="gemstone-results" class="container"></div>
 
 
-
-                    <img src="{% static 'img/gem-5000.png' %}" alt="5000 gp gemstone" height="32" width="32">
-                    5,000 GP
-                    <button type="button" onclick="increment('gem-5000-count')">+</button>
-                    <button type="button" onclick="decrement('gem-5000-count')">-</button>
-                    <input type="hidden" id="gem-5000-count-input" name="gem-5000" value="0" />
-                    <span id="gem-5000-count">0</span>
-                </p>
-            </div>
-
-            <p>
-                <button type="submit">Roll</button>
-                <button type="button" onclick="clearCounts()">Clear</button>
-                Gems: <span id="gemstone-count">0</span> |
-                Value: <span id="gemstone-value">0</span>
-            </p>
-        </form>
-        <br>
-
-        <div id="gemstone-results"></div>
-
-        <script src="{% static 'js/gemstone-roller.js' %}"></script>
-    </section>
+    <script src="{% static 'js/gemstone-roller.js' %}"></script>
 {% endblock %}
