@@ -67,48 +67,6 @@ em {
     margin-right: 1px;
 }
 
-
-
-.gemstone-counter-item {
-    display: flex;
-    align-items: center;
-}
-
-.gemstone-counter-icon {
-    margin-right: 10px;
-}
-
-.gemstone-counter-text {
-    /*color: #fffd82;*/
-    margin-right: 10px;
-}
-
-.gemstone-counter-buttons {
-    display: flex;
-    align-items: center;
-}
-
-.gemstone-counter-buttons button {
-    margin-right: 5px;
-}
-
-.gemstone-counter-count {
-    color: #ff9b71;
-    /*color: #fffd82;*/
-    /*    padding-left: 10px;*/
-    /*padding-right: 10px;*/
-}
-
-.gemstone-counter-buttons .gemstone-counter-count {
-    margin: 0 5px;
-}
-
-.gemstone-counter-buttons button:last-child {
-    margin-left: 5px;
-
-}
-
-
 .vertical-spacer {
     width: 4px;
     border: 1px solid #50557c;
@@ -118,6 +76,32 @@ em {
     align-self: stretch;
 }
 
+
+/* === Icon Styles === */
+.icon-yellow {
+    color: #fffd82;
+}
+
+.icon-red {
+    color: #e84855;
+}
+
+
+/* === Button Styles === */
+.my-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.my-btn-primary {
+    background-color: transparent;
+    color: #e84855;
+    border: 2px solid #1b998b;
+}
 
 
 /* === Form Styles === */
@@ -230,17 +214,44 @@ td {
 }
 
 
-/* === Icon Colors === */
-.icon-yellow {
-    color: #fffd82;
+/* === Gemstone Roller Styles === */
+.gemstone-counter-item {
+    display: flex;
+    align-items: center;
 }
 
-.icon-red {
-    color: #e84855;
+.gemstone-counter-icon {
+    margin-right: 10px;
+}
+
+.gemstone-counter-text {
+    margin-right: 10px;
+}
+
+.gemstone-counter-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.gemstone-counter-buttons button {
+    margin-right: 5px;
+}
+
+.gemstone-counter-count {
+    color: #ff9b71;
+}
+
+.gemstone-counter-buttons .gemstone-counter-count {
+    margin: 0 5px;
+}
+
+.gemstone-counter-buttons button:last-child {
+    margin-left: 5px;
+
 }
 
 
-/*ScrollBars*/
+/* === ScrollBar Styles === */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -260,22 +271,4 @@ td {
     padding-top: 60px;
     border-bottom: none;
     border-top: none;
-}
-
-.my-btn {
-    padding: 8px 12px;
-    font-size: 12px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-/* Additional colors */
-.my-btn-primary {
-    background-color: transparent;
-    color: #fffd82;
-    color: #ffffff;
-    color: #e84855;
-    border: 2px solid #1b998b;
 }
