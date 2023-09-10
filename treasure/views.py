@@ -52,6 +52,7 @@ def gemstone_view(request, gemstone_id):
     gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
     return render(request, 'treasure/gemstone-view.html', {'gemstone': gemstone})
 
+
 @login_required
 @transaction.atomic
 def gemstone_edit(request, gemstone_id):
@@ -77,6 +78,7 @@ def gemstone_edit(request, gemstone_id):
     icon_url = gemstone.icon.image.url if gemstone.icon else None
     context = {'form': form, 'icon_url': icon_url, 'gemstone_id': gemstone_id}
     return render(request, 'treasure/gemstone-edit.html', context)
+
 
 @login_required
 def gemstone_delete(request, gemstone_id):
@@ -110,21 +112,22 @@ def gemstone_search_table(request):
     if referer != expected_referer or not htmx_request:
         return redirect('treasure:gemstone_search')
 
+    context = {'gemstones': None, 'search_enabled': True}
     search_term = request.GET.get('q')
 
     if search_term:
 
-        gemstones = (
+        context['gemstones'] = (
             models.Gemstone.objects
             .search_for(search_term=search_term)
             .order_by(models.GEMSTONE_DEFAULT_ORDER)
         )
 
-        return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
+        return render(request, 'treasure/snippets/gemstone-table.html', context)
 
-    gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
-
-    return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
+    else:
+        context['gemstones'] = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
+        return render(request, 'treasure/snippets/gemstone-table.html', context)
 
 
 def gemstone_roll(request):

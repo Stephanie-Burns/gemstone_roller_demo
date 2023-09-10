@@ -2,8 +2,12 @@
 {% load  humanize %}
 {% load static %}
 
-{% if gemstones %}
+{% if gemstones or search_enabled %}
+    {% if search_enabled %}
+    <div class="outer-content-container outer-search-box-results">
+        {% else %}
     <div class="outer-content-container">
+        {% endif %}
         <div class="table-responsive inner-table-container">
             <table id="gemstoneTable" class="table gemstone-table">
                 <thead class="gemstone-thead">

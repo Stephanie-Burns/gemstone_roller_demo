@@ -3,19 +3,38 @@
 
 {% block content %}
     <section class="container">
-        <div id="search-box">
-            <h1>Search Gemstones</h1>
-            <input name="q"
-                   type="search"
-                   placeholder="Search for a gem..."
-                   hx-get="{% url 'treasure:gemstone_search_table' %}"
-                   hx-target="#search-results"
-                   hx-trigger="input delay:0.2s"
-            >
 
-            <div id="search-results">
-                {% include 'treasure/snippets/gemstone-table.html' %}
+        <div class="outer-content-container mb-4">
+            <div class="container inner-content-container pb-0">
+                <h2>Gemstones</h2>
+                <p>
+                    "Gemstones are small, lightweight, and easily secured compared to their same value in coins.
+                    See the table below for types of stones, gems, and jewels that can be found as treasure."
+                </p>
+                <p class="citation pb-1 mb-0">
+                    <i class="fab fa-d-and-d"></i> Dungeon Master's Guide, DnD 5th Edition, Chapter 7, pp. 133
+                </p>
             </div>
         </div>
+
+        <div id="search-box">
+            <div class="outer-content-container outer-search-box-container inline-flex-container">
+                <div class="inner-content-container inner-search-box-container">
+                    <input name="q"
+                           type="search"
+                           class="search-box-input"
+                           placeholder="Search for a gem..."
+                           hx-get="{% url 'treasure:gemstone_search_table' %}"
+                           hx-target="#search-results"
+                           hx-trigger="input delay:0.2s"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div id="search-results">
+            {% include 'treasure/snippets/gemstone-table.html' with search_enabled=True %}
+        </div>
+
     </section>
 {% endblock %}
