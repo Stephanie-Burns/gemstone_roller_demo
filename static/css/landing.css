@@ -1,9 +1,5 @@
 
 /* === Document Styles === */
-/** {*/
-/*    border: 1px solid red !important;*/
-/*}*/
-
 body {
     background-color: #2d3047;
     color: #ff9b71;
@@ -23,45 +19,9 @@ em {
     color: #1b998b;
 }
 
-
-
-
-
-
-
-
-.modal-dialog {
-    margin-top: 100px;
-}
-
-.modal-backdrop {
-  background-color: rgba(0,0,0,0.8); /* or any other rgba value */
-}
-
-.modal-content {
-  background-color: #2d3047;
-}
-
-/* Separator Lines */
-.modal-header,
-.modal-footer {
-  border-color: #1b998b;
-}
-
-/* Border around the Modal */
-.modal-content {
-  border: 2px solid #1b998b;
-}
-
-
-.abc {
-    color: #1b998b;
-    font-size: xx-large;
-}
-
-
-
-
+/** {*/
+/*    border: 1px solid red !important;*/
+/*}*/
 
 
 /* === Document Wrapper Styles === */
@@ -116,6 +76,10 @@ em {
     align-self: stretch;
 }
 
+.no-hover:hover {
+  color: inherit;
+  cursor: default;
+}
 
 /* === Icon Styles === */
 .icon-yellow {
@@ -155,6 +119,36 @@ em {
 .my-btn-large {
     font-size: large;
 }
+
+
+/* === Modal Styles === */
+.modal-dialog {
+    margin-top: 100px;
+}
+
+.modal-backdrop {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  background-color: #2d3047;
+}
+
+.modal-header,
+.modal-footer {
+  border-color: #1b998b;
+}
+
+.modal-content {
+  border: 2px solid #1b998b;
+}
+
+.modal-title {
+    color: #1b998b;
+    font-size: xx-large;
+}
+
+
 /* === Form Styles === */
 input, textarea, select {
     background-color: #50557c;
@@ -177,7 +171,7 @@ label {
 }
 
 td:nth-child(n+3):nth-child(-n+4) {
-    color: #40ddcb;  /*Table rows: name & color */
+    color: #40ddcb;
 }
 
 .gemstone-table {
