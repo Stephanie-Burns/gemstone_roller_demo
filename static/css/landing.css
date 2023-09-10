@@ -105,6 +105,11 @@ em {
     font-size: large;
 }
 
+.my-btn-wide {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .my-btn:hover {
     background-color: #1b998b;
     color: #ffffff;
@@ -299,10 +304,6 @@ td {
 .gemstone-counter-buttons button:last-child {
     margin-left: 5px;
 
-}
-.x {
-    margin-left: 5px;
-    margin-right: 5px;
 }
 
 
