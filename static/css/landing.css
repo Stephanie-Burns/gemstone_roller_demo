@@ -97,13 +97,24 @@ em {
     transition: all 0.3s ease;
 }
 
+.my-btn:hover {
+    background-color: #1b998b;
+    color: #ffffff;
+}
+
+.my-btn:active {
+    color: #ffffff;
+    background-color: #e84855;
+}
+
 .my-btn-primary {
     background-color: transparent;
     color: #e84855;
     border: 2px solid #1b998b;
 }
-
-
+.my-btn-large {
+    font-size: large;
+}
 /* === Form Styles === */
 input, textarea, select {
     background-color: #50557c;
@@ -248,6 +259,10 @@ td {
 .gemstone-counter-buttons button:last-child {
     margin-left: 5px;
 
+}
+.x {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 
