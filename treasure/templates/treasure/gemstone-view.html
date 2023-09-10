@@ -1,41 +1,47 @@
 
 {% extends 'base.html' %}
 {% load humanize %}
+{% block navbar %}{% endblock %}
 
 {% block content %}
-    <h1>Gemstone View</h1>
+    <article>
+        <div class="outer-content-container outer-content-small-border">
+            <div class="inner-content-container">
 
-        <div>
-            <strong>Name:</strong> {{ gemstone.name|capfirst }}
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="abc">{{ gemstone.name|capfirst }}</span>
+                    <img src="{{ gemstone.icon.image.url }}" width="64" height="64" alt="{{ gemstone.name }} icon">
+                </div>
+            </div>
         </div>
+        <div class="outer-content-container outer-content-small-border">
+            <div class="inner-content-container">
+                <div>
+                    <span><i class="fas fa-coins icon-red mr-2"></i>{{ gemstone.value|intcomma }} GP</span>
+                </div>
 
-        <div>
-            <strong>Value:</strong> {{ gemstone.value|intcomma }}
+                <div>
+                    <span><i class="fas fa-eye icon-red mr-2"></i>{{ gemstone.clarity|capfirst }}</span>
+                </div>
+
+                <div>
+                    <span><i class="fas fa-palette icon-red mr-2"></i>{{ gemstone.color|capfirst }}</span>
+                </div>
+                <br>
+                <p>
+                    <span><i class="fas fa-info-circle icon-red mr-1"></i></span>
+                    <em>{{ gemstone.description }}</em>
+                </p>
+            </div>
         </div>
-
-        <div>
-            <strong>Clarity:</strong> {{ gemstone.clarity|capfirst }}
-        </div>
-
-        <div>
-            <strong>Color(s):</strong> {{ gemstone.color|capfirst }}
-        </div>
-
-        <div>
-            <strong>Description:</strong>
-            <p>
-                {{ gemstone.description }}
-            </p>
-        </div>
+    </article>
 
 
-        <div>
-            <strong>Icon:</strong>
-            <img src="{{ gemstone.icon.image.url }}" width="64" height="64" alt="{{ gemstone.name }} icon">
-        </div>
 
-        <br>
-        {% if user.is_authenticated %}
-            <a href="{% url 'treasure:gemstone_edit' gemstone.id %}">Edit</a>
-        {% endif %}
+    <br>
+    {% if user.is_authenticated %}
+        <a href="{% url 'treasure:gemstone_edit' gemstone.id %}">Edit</a>
+    {% endif %}
+
+
 {% endblock %}

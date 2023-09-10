@@ -17,7 +17,13 @@
                 </thead>
                 <tbody class="gemstone-tbody">
                 {% for gemstone in gemstones %}
-                    <tr class="gemstone-tr" onclick="window.location='{% url 'treasure:gemstone_view' gemstone.id %}';">
+                    <tr class="gemstone-tr"
+                        hx-get="{% url 'treasure:gemstone_view' gemstone.id %}"
+                        hx-target="#gemstoneDetails"
+                        hx-trigger="click"
+                        data-toggle="modal"
+                        data-target="#gemstoneModal"
+                    >
                         <td><img src="{{ gemstone.icon.image.url }}" alt="{{ gemstone.name }}" height="32" width="32"></td>
                         <td class="gemstone-td">{{ gemstone.name }}</td>
                         <td>{{ gemstone.value|intcomma }} GP</td>
@@ -29,6 +35,30 @@
             </table>
         </div>
     </div>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="gemstoneModal" tabindex="-1" aria-labelledby="gemstoneModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="gemstoneModalLabel">Gemstone Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Dynamic content will be loaded here by htmx -->
+        <div id="gemstoneDetails">
+          <!-- Details will be filled here -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="my-btn my-btn-primary my-btn-large" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     <script src="{% static 'js/sort-gemstone-table.js' %}"></script>
 
