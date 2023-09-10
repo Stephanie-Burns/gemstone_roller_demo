@@ -49,8 +49,15 @@ def gemstone_create(request):
 
 
 def gemstone_view(request, gemstone_id):
-    gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
-    return render(request, 'treasure/gemstone-view.html', {'gemstone': gemstone})
+
+    context = {'gemstone': get_object_or_404(models.Gemstone, pk=gemstone_id), 'is_htmx': False}
+
+    if request.headers.get('HX-Request'):
+        context['htmx_request'] = True
+        return render(request, 'treasure/snippets/gemstone-data.html', context)
+
+    else:
+        return render(request, 'treasure/gemstone-view.html', context)
 
 
 @login_required

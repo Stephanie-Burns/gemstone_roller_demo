@@ -1,5 +1,5 @@
 
-{% include 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
@@ -96,11 +96,11 @@
                      </div>
                  </div>
              </div>
-
          </div>
- </section>
+     </section>
 
     <div id="gemstone-results" class="container"></div>
+    {% include 'treasure/snippets/gemstone-modal.html'%}
 
     <script src="{% static 'js/gemstone-roller.js' %}"></script>
 {% endblock %}

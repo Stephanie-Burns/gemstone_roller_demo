@@ -18,6 +18,17 @@ strong {
 em {
     color: #1b998b;
 }
+a {
+    color: #e84855;
+    font-weight: bold;
+
+}
+
+a:hover {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+}
 
 /** {*/
 /*    border: 1px solid red !important;*/
