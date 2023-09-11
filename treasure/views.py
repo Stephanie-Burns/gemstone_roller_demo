@@ -101,7 +101,7 @@ def gemstone_delete(request, gemstone_id):
 
 def gemstone_all(request):
     gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
-    return render(request, 'treasure/gemstone-all.html', {'gemstones': gemstones})
+    return render(request, 'treasure/snippets/gemstone-all.html', {'gemstones': gemstones})
 
 
 def gemstone_search(request):

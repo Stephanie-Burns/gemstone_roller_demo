@@ -13,10 +13,12 @@ urlpatterns = [
     path("gemstone/view/<int:gemstone_id>/", views.gemstone_view, name="gemstone_view"),
     path("gemstone/edit/<int:gemstone_id>/", views.gemstone_edit, name="gemstone_edit"),
     path("gemstone/delete/<int:gemstone_id>/", views.gemstone_delete, name="gemstone_delete"),
-    path("gemstone/all/", views.gemstone_all, name="gemstone_all"),
     path("gemstone/search/", views.gemstone_search, name="gemstone_search"),
     path("gemstone/roll/", views.gemstone_roll, name="gemstone_roll"),
 
-    # HTMX requests
+    # HTMX Endpoints
     path("gemstone/search-table/", views.gemstone_search_table, name="gemstone_search_table"),
+
+    # Deprecated Endpoints
+    # path("gemstone/all/", views.gemstone_all, name="gemstone_all"),
 ]
