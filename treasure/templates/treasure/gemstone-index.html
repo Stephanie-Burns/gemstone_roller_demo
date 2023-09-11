@@ -3,6 +3,37 @@
 
 {% block content %}
 
+    {% load static %}
+
+    <div class="outer-content-container">
+        <div class="inner-content-container">
+
+            <div class="outer-content-container outer-content-small-border">
+                <div class="inner-content-container">
+
+                    <table class="gemstone-counter-table">
+                        <tr class="inner-content-container">
+                            {% include 'treasure/partials/gemstone-counter.html' with gem_value=10 img_src='img/gem-10.png' pad='&nbsp' %}
+
+                            <td class="col-center gemstone-counter-td">
+                                <div class="divider d-none d-md-block">&nbsp</div>
+                            </td>
+
+                            {% include 'treasure/partials/gemstone-counter.html' with gem_value=500 img_src='img/gem-500.png' pad='&nbsp' %}
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
     {% include 'treasure/snippets/gemstone-all.html' with gemstones=gemstones %}
     {% include 'treasure/snippets/gemstone-modal.html'%}
 

@@ -341,14 +341,11 @@ td {
 .gemstone-counter-buttons {
     display: flex;
     align-items: center;
+    /*gap: 1rem;*/
 }
 
 .gemstone-counter-buttons button {
     margin-right: 5px;
-}
-
-.gemstone-counter-count {
-    color: #ff9b71;
 }
 
 .gemstone-counter-buttons .gemstone-counter-count {
@@ -358,6 +355,59 @@ td {
 .gemstone-counter-buttons button:last-child {
     margin-left: 5px;
 
+}
+
+/*jjjjjjjjjjjjjjjjjjjjjjj*/
+
+
+
+
+
+.gemstone-counter-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.gemstone-counter-td {
+    border: none;
+}
+
+.col1 {
+    width: 10%;
+    /*border: 1px solid red;*/
+}
+
+.col2 {
+    width: 10%;
+    /*border: 1px solid red;*/
+}
+
+.col3 {
+    width: 20%;
+    /*border: 1px solid red;*/
+    white-space: nowrap;
+    gap: 1rem;
+}
+
+.col-center {
+    width: 20%;
+    /*border: 1px solid red;*/
+}
+
+.gemstone-counter-count {
+    color: #ff9b71;
+    display: inline-block;
+    width: 2em;
+    text-align: center;
+}
+
+.divider {
+    width: 4px;
+    background-color: #1b998b;
+    border: 1px solid #50557c;
+    height: 100%;
+    margin: auto; /* Center the div horizontally */
 }
 
 

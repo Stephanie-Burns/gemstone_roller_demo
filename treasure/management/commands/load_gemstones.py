@@ -48,5 +48,6 @@ class Command(BaseCommand):
                         'icon': icon
                     }
                 )
+                self.stdout.write(self.style.SUCCESS('Object created or modified: %s', row['name']))
 
         self.stdout.write(self.style.SUCCESS('Successfully loaded data'))

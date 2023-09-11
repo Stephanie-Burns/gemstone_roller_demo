@@ -18,47 +18,47 @@
                              {% csrf_token %}
                              <div class="outer-content-container outer-content-small-border">
                                  <div class="inner-content-container">
-                                     <div class="d-flex flex-row">
-                                         <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=10 img_src='img/gem-10.png' pad='&nbsp' %}
-                                         </div>
+                                     <table class="gemstone-counter-table">
+                                         <tr>
+                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=10 img_src='img/gem-10.png'%}
 
-                                         <div class="vertical-spacer"></div>
+                                             <td class="col-center gemstone-counter-td">
+                                                 <div class="divider d-none d-md-block">&nbsp</div>
+                                             </td>
 
-                                         <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=500 img_src='img/gem-500.png' pad='&nbsp&nbsp'%}
-                                         </div>
-                                     </div>
+                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=500 img_src='img/gem-500.png'%}
+                                         </tr>
+                                     </table>
                                  </div>
                              </div>
                              <div class="outer-content-container outer-content-small-border">
                                  <div class="inner-content-container">
-                                     <div class="d-flex flex-row">
-                                         <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=50 img_src='img/gem-50.png' pad='&nbsp&nbsp' %}
-                                         </div>
+                                     <table class="gemstone-counter-table">
+                                         <tr>
+                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=50 img_src='img/gem-50.png'%}
 
-                                         <div class="vertical-spacer "></div>
+                                             <td class="col-center gemstone-counter-td">
+                                                 <div class="divider d-none d-md-block">&nbsp</div>
+                                             </td>
 
-                                         <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=1000 img_src='img/gem-1000.png' %}
-                                         </div>
-                                     </div>
+                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=1000 img_src='img/gem-1000.png'%}
+                                         </tr>
+                                     </table>
                                  </div>
                              </div>
                              <div class="outer-content-container outer-content-small-border">
                                  <div class="inner-content-container">
-                                     <div class="d-flex flex-row">
-                                         <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=100 img_src='img/gem-100.png' %}
-                                         </div>
+                                     <table class="gemstone-counter-table">
+                                         <tr>
+                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=100 img_src='img/gem-100.png'%}
 
-                                         <div class="vertical-spacer "></div>
+                                             <td class="col-center gemstone-counter-td">
+                                                 <div class="divider d-none d-md-block">&nbsp</div>
+                                             </td>
 
-                                         <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=5000 img_src='img/gem-5000.png' %}
-                                         </div>
-                                     </div>
+                                             {% include 'treasure/partials/gemstone-counter.html' with gem_value=5000 img_src='img/gem-5000.png'%}
+                                         </tr>
+                                     </table>
                                  </div>
                              </div>
 
