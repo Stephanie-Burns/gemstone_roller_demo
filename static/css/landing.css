@@ -112,6 +112,22 @@ a:hover {
     transition: all 0.3s ease;
 }
 
+.close-btn {
+    color: #e84855;
+    opacity: unset;
+    background-color: #e84855;
+    text-shadow: none;
+}
+
+.close-btn:hover {
+    color: #ffffff;
+}
+
+.my-btn-add-margin {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
 .my-btn-large {
     font-size: large;
 }
@@ -135,6 +151,16 @@ a:hover {
     background-color: transparent;
     color: #e84855;
     border: 2px solid #1b998b;
+}
+
+.my-btn-primary:disabled {
+    cursor: not-allowed;
+    color: #50557c;
+    border-color: #50557c;
+}
+
+.my-btn-primary:disabled:hover {
+    background-color: transparent;
 }
 
 

@@ -42,5 +42,16 @@
 
 <br>
 {% if user.is_authenticated %}
-    <a href="{% url 'treasure:gemstone_edit' gemstone.id %}">Edit</a>
+    <div class="d-flex">
+        <button disabled
+                onclick="window.location.href='#';"
+                class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
+            <i class="fas fa-trash"></i> Delete
+        </button>
+
+        <button onclick="window.location.href='{% url 'treasure:gemstone_edit' gemstone.id %}';"
+                class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
+            <i class="fas fa-edit"></i> Edit
+        </button>
+    </div>
 {% endif %}
