@@ -109,6 +109,28 @@ def gemstone_search(request):
     return render(request, 'treasure/gemstone-search.html', {'gemstones': gemstones})
 
 
+def gemstone_roll(request):
+
+    if request.headers.get('HX-Request'):
+
+        gemstones = []
+        for gem, count in request.GET.items():
+
+            if gem.startswith('gem') and int(count) > 0:
+
+                gem_objects = (
+                    models.Gemstone.objects
+                    .filter(value__exact=gem.split('-')[1])
+                    .order_by(models.GEMSTONE_DEFAULT_ORDER)
+                )
+                gemstones.extend(random.choices(gem_objects, k=int(count)))
+
+        return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
+
+    return render(request, 'treasure/gemstone-roll.html')
+
+
+# ========================= HTMX endpoints
 def gemstone_search_table(request):
 
     # TODO const dict and function(...EXPECTED_REFERER, redirect_url)
@@ -137,22 +159,6 @@ def gemstone_search_table(request):
         return render(request, 'treasure/snippets/gemstone-table.html', context)
 
 
-def gemstone_roll(request):
-
-    if request.headers.get('HX-Request'):
-
-        gemstones = []
-        for gem, count in request.GET.items():
-
-            if gem.startswith('gem') and int(count) > 0:
-
-                gem_objects = (
-                    models.Gemstone.objects
-                    .filter(value__exact=gem.split('-')[1])
-                    .order_by(models.GEMSTONE_DEFAULT_ORDER)
-                )
-                gemstones.extend(random.choices(gem_objects, k=int(count)))
-
-        return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
-
-    return render(request, 'treasure/gemstone-roll.html')
+def gemstone_form(request):
+    form = forms.GemstoneForm()
+    return render(request, 'treasure/snippets/gemstone-form.html', {'form': form})

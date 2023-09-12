@@ -391,6 +391,53 @@ td {
 }
 
 
+/* === Gemstone Form Styles === */
+.gemstone-file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.gemstone-file-label {
+    color: #e84855;
+    border: 2px dashed #1b998b;
+    background-color: transparent;
+    height: 64px;
+    width: 64px;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gemstone-form-text-input-lg {
+    border: 2px solid #1b998b;
+    font-size: xx-large;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    /*max-width: 100%;*/
+    /*width: 100%;*/
+}
+
+.gemstone-form-textarea-input {
+    border: 2px solid #1b998b;
+    width: 100%;
+}
+
+.gemstone-form-textarea-container {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.gemstone-from-text-input {
+    border: 2px solid #1b998b;
+    width: 50%;
+}
+
+
 /* === ScrollBar Styles === */
 ::-webkit-scrollbar {
     width: 12px;

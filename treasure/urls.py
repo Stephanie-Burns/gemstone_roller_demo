@@ -18,6 +18,7 @@ urlpatterns = [
 
     # HTMX Endpoints
     path("gemstone/search-table/", views.gemstone_search_table, name="gemstone_search_table"),
+    path("gemstone/form/", views.gemstone_form, name="gemstone_form"),
 
     # Deprecated Endpoints
     # path("gemstone/all/", views.gemstone_all, name="gemstone_all"),
