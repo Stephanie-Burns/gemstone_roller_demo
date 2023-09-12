@@ -47,7 +47,11 @@ class GemstoneForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['clarity'].choices = [(obj.id, obj.name) for obj in models.GemstoneClarity.objects.all()]
+        self.fields['clarity'].choices = [
+            (obj.id, obj.name)
+            for obj
+            in models.GemstoneClarity.objects.all()
+        ]
 
     def clean_icon(self):
 

@@ -160,5 +160,13 @@ def gemstone_search_table(request):
 
 
 def gemstone_form(request):
-    form = forms.GemstoneForm()
+
+    gem_id = request.GET.get('id')
+
+    if gem_id:
+        gemstone = get_object_or_404(models.Gemstone, pk=gem_id)
+        form = forms.GemstoneForm(instance=gemstone)
+    else:
+        form = forms.GemstoneForm()
+
     return render(request, 'treasure/snippets/gemstone-form.html', {'form': form})
