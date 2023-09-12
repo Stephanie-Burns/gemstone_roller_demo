@@ -27,19 +27,27 @@ class GemstoneForm(forms.ModelForm):
         model = models.Gemstone
         fields = ['name', 'clarity', 'color', 'description', 'value']
 
-    icon = forms.ImageField(
-        widget=forms.FileInput(attrs={'class': 'gemstone-file-input', 'id': 'gemstone-icon-upload'}),
-        required=False
-    )
-    name = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'gemstone-form-text-input-lg', 'placeholder': 'Wyrmfire Topaz'})
-    )
-    color = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'gemstone-from-text-input', 'placeholder': 'Fiery orange to deep crimson'})
-    )
-    description = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'gemstone-form-textarea-input', 'placeholder': DESCRIPTION_PLACEHOLDER}),
-    )
+    icon = forms.ImageField(widget=forms.FileInput(attrs={
+        'class': 'gemstone-file-input', 'id': 'gemstone-icon-upload'}), required=False)
+
+    name = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'gemstone-form-text-input-lg', 'placeholder': 'Wyrmfire Topaz'}))
+
+    value = forms.IntegerField(widget=forms.NumberInput(attrs={
+        'class': 'gemstone-from-value-input', 'min': 1, 'max': 1_000_000, 'value': 10}))
+
+    clarity = forms.ChoiceField(widget=forms.Select(attrs={
+        'class': 'gemstone-form-clarity-input'}))
+
+    color = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'gemstone-from-text-input', 'placeholder': 'Fire orange to deep crimson'}))
+
+    description = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'gemstone-form-textarea-input', 'rows': '6', 'placeholder': DESCRIPTION_PLACEHOLDER}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['clarity'].choices = [(obj.id, obj.name) for obj in models.GemstoneClarity.objects.all()]
 
     def clean_icon(self):
 

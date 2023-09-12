@@ -7,37 +7,72 @@
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="outer-content-container outer-content-small-border">
-            <div class="inner-content-container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <span><i class="fas fa-tag icon-red"></i>&nbsp;</span>
-                        {{ form.name }}
-                    </div>
 
+
+        <div class="outer-content-container outer-content-small-border">
+            <div class="inner-content-container x">
+
+                <div class="y">
+                    <span class="z mr-1"><i class="fas fa-tag icon-red j"></i>&nbsp;</span>
+
+                    <span class="the-spanner">{{ form.name }}</span>
+
+                </div>
+                <div class="x">
                     <label for="{{ form.icon.id_for_label }}" class="gemstone-file-label">
                         <i class="fas fa-camera fa-2x" id="upload-icon"></i>
                         {{ form.icon }}
                     </label>
                 </div>
+
+
             </div>
         </div>
+
+
+{#        <div class="outer-content-container outer-content-small-border">#}
+{#            <div class="inner-content-container">#}
+{#                <div class="d-flex justify-content-between align-items-center">#}
+{#                    <div>#}
+{#                        <span><i class="fas fa-tag icon-red"></i>&nbsp;</span>#}
+{#                        {{ form.name }}#}
+{#                    </div>#}
+{##}
+{#                    <label for="{{ form.icon.id_for_label }}" class="gemstone-file-label">#}
+{#                        <i class="fas fa-camera fa-2x" id="upload-icon"></i>#}
+{#                        {{ form.icon }}#}
+{#                    </label>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 
         <div class="outer-content-container outer-content-small-border mb-4">
             <div class="inner-content-container">
                 <div>
-                    <span><i class="fas fa-coins icon-red"></i>&nbsp;</span>
+                    <label for="id_value">
+                        <i class="fas fa-coins icon-red">&nbsp;</i>
+                    </label>
                     {{ form.value }}
+{#                    <span><i class="fas fa-coins icon-red"></i>&nbsp;</span>#}
+{#                    {{ form.value }}#}
                 </div>
 
                 <div>
-                    <span><i class="fas fa-eye icon-red"></i>&nbsp;</span>
+                    <label for="id_clarity">
+                        <i class="fas fa-eye icon-red">&nbsp;</i>
+                    </label>
                     {{ form.clarity }}
+{#                    <span><i class="fas fa-eye icon-red"></i>&nbsp;</span>#}
+{#                    {{ form.clarity }}#}
                 </div>
 
-                <div>
-                    <span><i class="fas fa-palette icon-red"></i>&nbsp;</span>
+                <div class="gemstone-form-text-container">
+                    <label for="id_color">
+                        <i class="fas fa-palette icon-red mr-1">&nbsp;</i>
+                    </label>
                     {{ form.color }}
+{#                    <span class="">{{ form.color }}</span>#}
+{#                    <span><i class="fas fa-palette icon-red"></i>&nbsp;</span>#}
                 </div>
 
                 <br>

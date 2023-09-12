@@ -7,7 +7,11 @@
     </span>
 {% endif %}
 
-<article>
+
+<div id="gemstone-view" class="fade-me-out">
+
+
+<article  class="smooth">
     <div class="outer-content-container outer-content-small-border">
         <div class="inner-content-container">
 
@@ -51,9 +55,14 @@
             <i class="fas fa-trash"></i> Delete
         </button>
 
-        <button onclick="window.location.href='{% url 'treasure:gemstone_edit' gemstone.id %}';"
+        <button hx-get="{% url 'treasure:gemstone_form' %}"
+                hx-trigger="click"
+                hx-swap="innerHTML swap:1s"
+                hx-target="#gemstone-view"
                 class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
             <i class="fas fa-edit"></i> Edit
         </button>
     </div>
 {% endif %}
+
+</div>
