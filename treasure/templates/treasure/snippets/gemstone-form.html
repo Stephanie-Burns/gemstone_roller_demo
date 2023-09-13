@@ -12,67 +12,51 @@
         <div class="outer-content-container outer-content-small-border">
             <div class="inner-content-container x">
 
-                <div class="y">
+                <div class="{% if modal_view %}gemstone-form-text-container-lg-modal{% else %}gemstone-form-text-container-lg{% endif %}">
                     <span class="z mr-1"><i class="fas fa-tag icon-red j"></i>&nbsp;</span>
-
                     <span class="the-spanner">{{ form.name }}</span>
-
                 </div>
                 <div class="x">
                     <label for="{{ form.icon.id_for_label }}" class="gemstone-file-label">
-                        <i class="fas fa-camera fa-2x" id="upload-icon"></i>
                         {{ form.icon }}
+
+                        {% if icon_url %}
+                            <img id="upload-icon" src="{{ icon_url }}" alt="Image Preview" height="32" width="32" />
+                        {% else %}
+                            <i class="fas fa-camera fa-2x" id="upload-icon"></i>
+                        {% endif %}
                     </label>
                 </div>
-
-
             </div>
         </div>
 
 
-{#        <div class="outer-content-container outer-content-small-border">#}
-{#            <div class="inner-content-container">#}
-{#                <div class="d-flex justify-content-between align-items-center">#}
-{#                    <div>#}
-{#                        <span><i class="fas fa-tag icon-red"></i>&nbsp;</span>#}
-{#                        {{ form.name }}#}
-{#                    </div>#}
-{##}
-{#                    <label for="{{ form.icon.id_for_label }}" class="gemstone-file-label">#}
-{#                        <i class="fas fa-camera fa-2x" id="upload-icon"></i>#}
-{#                        {{ form.icon }}#}
-{#                    </label>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
+
+
+
+
 
         <div class="outer-content-container outer-content-small-border mb-4">
             <div class="inner-content-container">
                 <div>
-                    <label for="id_value">
+                    <label for="{{ form.value.id_for_label }}">
                         <i class="fas fa-coins icon-red">&nbsp;</i>
                     </label>
                     {{ form.value }}
-{#                    <span><i class="fas fa-coins icon-red"></i>&nbsp;</span>#}
-{#                    {{ form.value }}#}
                 </div>
 
                 <div>
-                    <label for="id_clarity">
+                    <label for="{{ form.clarity.id_for_label }}" class="mb-1">
                         <i class="fas fa-eye icon-red">&nbsp;</i>
                     </label>
                     {{ form.clarity }}
-{#                    <span><i class="fas fa-eye icon-red"></i>&nbsp;</span>#}
-{#                    {{ form.clarity }}#}
                 </div>
 
-                <div class="gemstone-form-text-container">
-                    <label for="id_color">
-                        <i class="fas fa-palette icon-red mr-1">&nbsp;</i>
+                <div class="{% if modal_view %}gemstone-form-text-container-modal{% else %}gemstone-form-text-container{% endif %}">
+                    <label for="{{ form.color.id_for_label }}" class="mb-0">
+                        <i class="fas fa-palette icon-red mr-1 pt-1">&nbsp;</i>
                     </label>
                     {{ form.color }}
-{#                    <span class="">{{ form.color }}</span>#}
-{#                    <span><i class="fas fa-palette icon-red"></i>&nbsp;</span>#}
                 </div>
 
                 <br>
@@ -85,19 +69,34 @@
         </div>
 
         <div class="d-flex">
-            <button hx-get="{% url 'treasure:gemstone_form' %}"
-                    hx-trigger="click"
-                    hx-swap="innerHTML"
-                    hx-target="#gemstone-form"
-                    class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
-            >
-                <span><i class="fas fa-broom"></i> Clear</span>
-            </button>
+            {% if form.name.value %}
+
+                <button hx-post="{% url 'treasure:gemstone_delete' gemstone_id %}"
+                        hx-trigger="click"
+                        class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
+                >
+                    <span><i class="fas fa-broom"></i> Delete</span>
+                </button>
+
+            {% else %}
+
+                <button hx-get="{% url 'treasure:gemstone_form' %}"
+                        hx-trigger="click"
+                        hx-swap="innerHTML"
+                        hx-target="#gemstone-form"
+                        class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
+                >
+                    <span><i class="fas fa-broom"></i> Clear</span>
+                </button>
+
+            {% endif %}
+
             <button type="submit" class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
                 <span><i class="fas fa-save"></i> Save</span>
             </button>
         </div>
     </form>
+
 
     {% block extra_js %}
         <script src="{% static 'js/image-preview.js' %}"></script>

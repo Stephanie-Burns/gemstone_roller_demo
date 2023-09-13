@@ -38,8 +38,8 @@
             <br>
 
             <p>
-                <span><i class="fas fa-info-circle icon-red mr-1"></i></span>
-                <em>{{ gemstone.description }}</em>
+                <span><i class="fas fa-info-circle icon-red"></i></span>
+                <em>"{{ gemstone.description }}"</em>
             </p>
         </div>
     </div>
@@ -55,9 +55,9 @@
             <i class="fas fa-trash"></i> Delete
         </button>
 
-        <button hx-get="{% url 'treasure:gemstone_form' %}?id={{ gemstone.id }}"
+        <button hx-get="{% url 'treasure:gemstone_edit' gemstone.id %}"
                 hx-trigger="click"
-                hx-swap="innerHTML swap:1s"
+                hx-swap="innerHTML swap:700ms"
                 hx-target="#gemstone-view"
                 class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
             <i class="fas fa-edit"></i> Edit

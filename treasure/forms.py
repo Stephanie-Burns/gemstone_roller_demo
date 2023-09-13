@@ -40,7 +40,7 @@ class GemstoneForm(forms.ModelForm):
         'class': 'gemstone-form-clarity-input'}))
 
     color = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'gemstone-from-text-input', 'placeholder': 'Fire orange to deep crimson'}))
+        'class': 'gemstone-from-text-input', 'placeholder': 'Fiery orange to deep crimson'}))
 
     description = forms.CharField(widget=forms.Textarea(attrs={
         'class': 'gemstone-form-textarea-input', 'rows': '6', 'placeholder': DESCRIPTION_PLACEHOLDER}))
@@ -63,3 +63,14 @@ class GemstoneForm(forms.ModelForm):
                 raise forms.ValidationError('File size must be no more than 2 MB.')
 
         return icon
+
+    def clean_clarity(self):
+        clarity_id = self.cleaned_data['clarity']
+
+        try:
+            clarity_object = models.GemstoneClarity.objects.get(id=clarity_id)
+
+        except models.GemstoneClarity.DoesNotExist:
+            raise forms.ValidationError("The selected clarity does not exist.")
+
+        return clarity_object

@@ -3,7 +3,7 @@ import random
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 
@@ -25,8 +25,6 @@ def gemstone_index(request):
 @transaction.atomic
 def gemstone_create(request):
 
-    default_icon_url = models.GemstoneIcon.objects.get(id=1).image.url
-    
     if request.method == 'POST':
 
         form = forms.GemstoneForm(request.POST, request.FILES)
@@ -44,8 +42,7 @@ def gemstone_create(request):
 
         form = forms.GemstoneForm()
 
-    context = {'form': form, 'icon_url': default_icon_url}
-    return render(request, 'treasure/gemstone-create.html', context)
+    return render(request, 'treasure/gemstone-create.html', {'form': form})
 
 
 def gemstone_view(request, gemstone_id):
@@ -65,6 +62,7 @@ def gemstone_view(request, gemstone_id):
 def gemstone_edit(request, gemstone_id):
 
     gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
+    htmx_request = request.headers.get('HX-Request')
 
     if request.method == 'POST':
         form = forms.GemstoneForm(request.POST, instance=gemstone)
@@ -77,14 +75,22 @@ def gemstone_edit(request, gemstone_id):
                 gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name)
 
             gemstone.save()
-            return redirect('treasure:gemstone_index')
+            return HttpResponseRedirect(reverse('gemstone_view', args=[gemstone.id]))
 
-    else:
+    if request.method == 'GET':
+
         form = forms.GemstoneForm(instance=gemstone)
+        icon_url = gemstone.icon.image.url if gemstone.icon else None
+        context = {'form': form, 'icon_url': icon_url, 'gemstone_id': gemstone_id}
 
-    icon_url = gemstone.icon.image.url if gemstone.icon else None
-    context = {'form': form, 'icon_url': icon_url, 'gemstone_id': gemstone_id}
-    return render(request, 'treasure/gemstone-edit.html', context)
+        if htmx_request:
+            template = 'treasure/snippets/gemstone-form.html'
+            context['modal_view'] = True
+
+        else:
+            template = 'treasure/gemstone_edit.html'
+
+        return render(request, template, context)
 
 
 @login_required
@@ -96,7 +102,9 @@ def gemstone_delete(request, gemstone_id):
     gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
     gemstone.delete()
 
-    return redirect('treasure:gemstone_index')
+    response = HttpResponse()
+    response["HX-Redirect"] = request.build_absolute_uri(reverse('treasure:gemstone_search'))
+    return response
 
 
 def gemstone_all(request):

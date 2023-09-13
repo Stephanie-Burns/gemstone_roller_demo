@@ -419,13 +419,7 @@ td {
     border: 2px solid #1b998b;
     font-size: xx-large;
     font-family: "Helvetica Neue", Arial, sans-serif;
-    /*max-width: 100%;*/
     width: 100%;
-    /*width: ;*/
-    /*flex-grow: ;*/
-    /*width:;*/
-    /*flex-grow: 1;*/
-    /*flex: 1;*/
 }
 
 .gemstone-form-textarea-input {
@@ -443,6 +437,28 @@ td {
 .gemstone-form-text-container {
     display: flex;
     flex-flow: row nowrap;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.gemstone-form-text-container-modal {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.gemstone-form-text-container-lg {
+    margin-right: auto;
+    width: 50%;
+}
+
+.gemstone-form-text-container-lg-modal {
+    margin-right: auto;
     width: 75%;
 }
 
@@ -461,6 +477,7 @@ td {
     border-radius: 0;
     width: 30%;
     margin-left: -2px;
+    font-size: large;
 }
 
 
@@ -496,10 +513,7 @@ td {
     align-items: center;
 }
 
-.y {
-    margin-right: auto;
-    width: 75%;
-}
+
 
 .the-spanner {
     display: block;
@@ -514,12 +528,10 @@ td {
     padding-top: 20px;
 }
 
-.smooth {
-  transition: all 10s ease-in;
-}
+
 
 .fade-me-out.htmx-swapping {
-    /*background: black;*/
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+    opacity: 0;
+    transition: opacity 700ms ease-in-out;
+    transition-duration: 500ms;
 }
