@@ -1,15 +1,16 @@
+
 function handleDelete() {
     const deleteButton = document.getElementById("delete-button");
     const countdownText = document.getElementById("delete-button-text");
 
-    if (deleteButton && countdownText) {  // Make sure the elements exist
+    if (deleteButton && countdownText) {
         let countdown = 3;
         let timer;
 
         function resetCountdown() {
             clearInterval(timer);
             countdownText.textContent = "Delete";
-            countdown = 3; // Reset the countdown
+            countdown = 3;
         }
 
         function startCountdown() {
@@ -20,9 +21,7 @@ function handleDelete() {
                 if (countdown < 0) {
                     clearInterval(timer);
                     countdownText.textContent = `Success`;
-                    countdown = 3;  // Reset the countdown
-
-                    // Trigger the htmx action
+                    countdown = 3;
                     htmx.trigger("#deleteEvent", "deleteConfirmed");
                 }
             }, 1000);
@@ -38,6 +37,7 @@ function handleDelete() {
     }
 }
 
+// Initialize on page load
 document.addEventListener("DOMContentLoaded", function() {
     handleDelete();
 });

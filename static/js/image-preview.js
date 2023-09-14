@@ -1,3 +1,4 @@
+
 function initializeImagePreview() {
     const input = document.querySelector('input[type=file]');
     const label = document.querySelector('.gemstone-file-label');
@@ -42,7 +43,5 @@ document.addEventListener("htmx:afterSettle", function() {
 if (document.getElementById('gemstoneModal')) {
     document.addEventListener("htmx:afterSettle", function() {
         initializeImagePreview();
-    });  // Corrected this line
+    });
 }
-
-
