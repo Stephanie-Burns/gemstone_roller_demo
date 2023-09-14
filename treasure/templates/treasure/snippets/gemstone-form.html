@@ -1,5 +1,5 @@
 
-{% load static %}
+{#{% load static %}#}
 
 <div id="gemstone-form">
     <!-- Display all form errors at the top -->
@@ -12,10 +12,13 @@
         <div class="outer-content-container outer-content-small-border">
             <div class="inner-content-container x">
 
+                <!-- Name Input -->
                 <div class="{% if modal_view %}gemstone-form-text-container-lg-modal{% else %}gemstone-form-text-container-lg{% endif %}">
                     <span class="z mr-1"><i class="fas fa-tag icon-red j"></i>&nbsp;</span>
                     <span class="the-spanner">{{ form.name }}</span>
                 </div>
+
+                <!-- Icon Input -->
                 <div class="x">
                     <label for="{{ form.icon.id_for_label }}" class="gemstone-file-label">
                         {{ form.icon }}
@@ -27,17 +30,13 @@
                         {% endif %}
                     </label>
                 </div>
+
             </div>
         </div>
 
-
-
-
-
-
-
         <div class="outer-content-container outer-content-small-border mb-4">
             <div class="inner-content-container">
+                <!-- Value Input -->
                 <div>
                     <label for="{{ form.value.id_for_label }}">
                         <i class="fas fa-coins icon-red">&nbsp;</i>
@@ -45,6 +44,7 @@
                     {{ form.value }}
                 </div>
 
+                <!-- Clarity Input -->
                 <div>
                     <label for="{{ form.clarity.id_for_label }}" class="mb-1">
                         <i class="fas fa-eye icon-red">&nbsp;</i>
@@ -52,6 +52,7 @@
                     {{ form.clarity }}
                 </div>
 
+                <!-- Color Input -->
                 <div class="{% if modal_view %}gemstone-form-text-container-modal{% else %}gemstone-form-text-container{% endif %}">
                     <label for="{{ form.color.id_for_label }}" class="mb-0">
                         <i class="fas fa-palette icon-red mr-1 pt-1">&nbsp;</i>
@@ -61,6 +62,7 @@
 
                 <br>
 
+                <!-- Description Input -->
                 <div class="gemstone-form-textarea-container">
                     <span><i class="fas fa-info-circle icon-red mr-1"></i>&nbsp;</span>
                     {{ form.description }}
@@ -68,18 +70,27 @@
             </div>
         </div>
 
+        <!-- Buttons -->
         <div class="d-flex">
             {% if form.name.value %}
 
-                <button hx-post="{% url 'treasure:gemstone_delete' gemstone_id %}"
-                        hx-trigger="click"
+                <!-- Delete Button -->
+                <div id="deleteEvent"
+                     hx-post="{% url 'treasure:gemstone_delete' gemstone_id %}"
+                     hx-trigger="deleteConfirmed"
+                >
+                </div>
+                <button type="button"
+                        id="delete-button"
+                        onclick="handleDelete()"
                         class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
                 >
-                    <span><i class="fas fa-broom"></i> Delete</span>
+                    <span><i class="fas fa-trash"></i> <span id="delete-button-text">Delete</span></span>
                 </button>
 
             {% else %}
 
+                <!-- Clear Button -->
                 <button hx-get="{% url 'treasure:gemstone_form' %}"
                         hx-trigger="click"
                         hx-swap="innerHTML"
@@ -91,16 +102,12 @@
 
             {% endif %}
 
+            <!-- Save Button -->
             <button type="submit" class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
                 <span><i class="fas fa-save"></i> Save</span>
             </button>
         </div>
     </form>
-
-
-    {% block extra_js %}
-        <script src="{% static 'js/image-preview.js' %}"></script>
-    {% endblock %}
 
 </div>
 

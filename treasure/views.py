@@ -36,7 +36,7 @@ def gemstone_create(request):
             gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name)
             gemstone.save()
 
-            return redirect('treasure:gemstone_index')
+            return redirect('treasure:gemstone_view', gemstone.id)
 
     else:
 
@@ -88,7 +88,7 @@ def gemstone_edit(request, gemstone_id):
             context['modal_view'] = True
 
         else:
-            template = 'treasure/gemstone_edit.html'
+            template = 'treasure/gemstone-edit.html'
 
         return render(request, template, context)
 
@@ -177,4 +177,7 @@ def gemstone_form(request):
     else:
         form = forms.GemstoneForm()
 
-    return render(request, 'treasure/snippets/gemstone-form.html', {'form': form})
+    if request.headers.get('HX-Request'):
+        return render(request, 'treasure/snippets/gemstone-form.html', {'form': form})
+    else:
+        return render(request, 'treasure/gemstone-create.html', {'form': form})
