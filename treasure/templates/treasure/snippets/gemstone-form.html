@@ -19,7 +19,7 @@
                 </div>
 
                 <!-- Icon Input -->
-                <div id="tempID" class="x">
+                <div class="x">
                     <label for="{{ form.icon.id_for_label }}" class="gemstone-file-label">
                         {{ form.icon }}
 
@@ -33,12 +33,6 @@
 
             </div>
         </div>
-
-
-
-
-
-
 
         <div class="outer-content-container outer-content-small-border mb-4">
             <div class="inner-content-container">
@@ -72,19 +66,27 @@
             </div>
         </div>
 
+        <!-- Buttons -->
         <div class="d-flex">
             {% if form.name.value %}
 
                 <!-- Delete Button -->
-{#                <button hx-post="{% url 'treasure:gemstone_delete' gemstone_id %}"#}
+                <div id="deleteEvent"
+                     hx-post="{% url 'treasure:gemstone_delete' gemstone_id %}"
+                     hx-trigger="deleteConfirmed"
+                >
+                </div>
                 <button type="button"
-{#                        hx-trigger="click[countdown === 0]"#}
-                        onclick="handleDelete()"
                         id="delete-button"
+                        onclick="handleDelete()"
                         class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
                 >
                     <span><i class="fas fa-trash"></i> <span id="delete-button-text">Delete</span></span>
                 </button>
+
+
+
+
 
 {#                {% if not modal_view %}#}
 {##}
@@ -120,6 +122,11 @@
             </button>
         </div>
     </form>
+
+{#    {% block extra_js %}#}
+{#        <script src="{% static 'js/long-press-delete.js' %}"></script>#}
+{#    {% endblock %}#}
+
 </div>
 
 

@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <div class="container">
@@ -16,4 +17,10 @@
             <input type="submit" value="Delete Gemstone">
         </form>
     </div>
+
+    {% block extra_js %}
+        <script src="{% static 'js/image-preview.js' %}"></script>
+{#        <script src="{% static 'js/long-press-delete.js' %}"></script>#}
+    {% endblock %}
+
 {% endblock %}
