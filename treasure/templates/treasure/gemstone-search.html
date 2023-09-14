@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <section>
@@ -38,4 +39,10 @@
         {% include 'treasure/snippets/gemstone-modal.html'%}
 
     </section>
+
+    {% block extra_js %}
+        <script src="{% static 'js/image-preview.js' %}"></script>
+        <script src="{% static 'js/long-press-delete.js' %}"></script>
+    {% endblock %}
+
 {% endblock %}

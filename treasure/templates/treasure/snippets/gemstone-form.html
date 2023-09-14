@@ -71,24 +71,34 @@
         <div class="d-flex">
             {% if form.name.value %}
 
-                <button hx-post="{% url 'treasure:gemstone_delete' gemstone_id %}"
-                        hx-trigger="click"
+                <!-- Delete Button -->
+{#                <button hx-post="{% url 'treasure:gemstone_delete' gemstone_id %}"#}
+                <button type="button"
+{#                        hx-trigger="click[countdown === 0]"#}
+                        onclick="handleDelete()"
+                        id="delete-button"
                         class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
                 >
-                    <span><i class="fas fa-trash"></i> Delete</span>
+                    <span><i class="fas fa-trash"></i> <span id="delete-button-text">Delete</span></span>
                 </button>
 
-                <button hx-get="{% url 'treasure:gemstone_view' gemstone_id %}"
-                        hx-trigger="click"
-                        hx-swap="outerHTML"
-                        hx-target="#gemstone-form"
-                        class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
-                >
-                    <span><i class="fas fa-broom"></i> Cancel</span>
-                </button>
+{#                {% if not modal_view %}#}
+{##}
+{#                    <!-- Cancel Button -->#}
+{#                    <button hx-get="{% url 'treasure:gemstone_view' gemstone_id %}"#}
+{#                            hx-trigger="click"#}
+{#                            hx-swap="outerHTML"#}
+{#                            hx-target="#gemstone-form"#}
+{#                            class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"#}
+{#                    >#}
+{#                        <span><i class="fas fa-broom"></i> Cancel</span>#}
+{#                    </button>#}
+{##}
+{#                    {% endif %}#}
 
             {% else %}
 
+                <!-- Clear Button -->
                 <button hx-get="{% url 'treasure:gemstone_form' %}"
                         hx-trigger="click"
                         hx-swap="innerHTML"
@@ -100,6 +110,7 @@
 
             {% endif %}
 
+            <!-- Save Button -->
             <button type="submit" class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
                 <span><i class="fas fa-save"></i> Save</span>
             </button>
@@ -109,6 +120,7 @@
 
     {% block extra_js %}
         <script src="{% static 'js/image-preview.js' %}"></script>
+        <script src="{% static 'js/long-press-delete.js' %}"></script>
     {% endblock %}
 
 </div>

@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <article class="outer-content-container">
@@ -7,4 +8,9 @@
             {% include 'treasure/snippets/gemstone-data.html' %}
         </div>
     </article>
+
+{#    {% block extra_js %}#}
+{#        <script src="{% static 'js/long-press-delete.js' %}"></script>#}
+{#    {% endblock %}#}
+
 {% endblock %}
