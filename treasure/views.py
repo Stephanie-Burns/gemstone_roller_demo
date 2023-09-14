@@ -138,7 +138,7 @@ def gemstone_roll(request):
     return render(request, 'treasure/gemstone-roll.html')
 
 
-# ========================= HTMX endpoints
+# HTMX endpoints =============================================================
 def gemstone_search_table(request):
 
     # TODO const dict and function(...EXPECTED_REFERER, redirect_url)

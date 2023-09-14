@@ -8,7 +8,7 @@
 {% endif %}
 
 
-<div id="gemstone-view" class="fade-me-out">
+<div id="gemstone-view" class="modal-fade-out">
 
 
 <article  class="smooth">
@@ -49,12 +49,22 @@
 <br>
 {% if user.is_authenticated %}
     <div class="d-flex">
-        <button disabled
-                onclick="window.location.href='#';"
-                class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
-            <i class="fas fa-trash"></i> Delete
+
+        <!-- Delete Button -->
+        <div id="deleteEvent"
+             hx-post="{% url 'treasure:gemstone_delete' gemstone.id %}"
+             hx-trigger="deleteConfirmed delay:500ms"
+        >
+        </div>
+        <button type="button"
+                id="delete-button"
+                onclick="handleDelete()"
+                class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
+        >
+            <span><i class="fas fa-trash"></i> <span id="delete-button-text">Delete</span></span>
         </button>
 
+        <!-- Edit Button -->
         <button hx-get="{% url 'treasure:gemstone_edit' gemstone.id %}"
                 hx-trigger="click"
                 hx-swap="innerHTML swap:700ms"
