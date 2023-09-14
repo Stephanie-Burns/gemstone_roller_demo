@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+
     <section>
 
         <div class="container">
@@ -31,6 +32,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="outer-content-container outer-content-small-border">
                                 <div class="inner-content-container">
                                     <div class="d-flex flex-row">
@@ -46,6 +48,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="outer-content-container outer-content-small-border">
                                 <div class="inner-content-container">
                                     <div class="d-flex flex-row">
@@ -100,7 +103,9 @@
     </section>
 
     <div id="gemstone-results"></div>
+
     {% include 'treasure/snippets/gemstone-modal.html'%}
 
     <script src="{% static 'js/gemstone-roller.js' %}"></script>
+
 {% endblock %}

@@ -1,4 +1,6 @@
 
+{% load static %}
+
 <div class="modal fade" id="gemstoneModal" tabindex="-1" aria-labelledby="gemstoneModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -18,4 +20,10 @@
             </div>
         </div>
     </div>
+
+    {% block extra_js %}
+        <script src="{% static 'js/image-preview.js' %}"></script>
+{#        <script src="{% static 'js/long-press-delete.js' %}"></script>#}
+    {% endblock %}
+
 </div>

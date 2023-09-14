@@ -1,6 +1,5 @@
 
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
     <section>
@@ -36,13 +35,9 @@
         <div id="search-results">
             {% include 'treasure/snippets/gemstone-table.html' with search_enabled=True %}
         </div>
+
         {% include 'treasure/snippets/gemstone-modal.html'%}
 
     </section>
-
-    {% block extra_js %}
-        <script src="{% static 'js/image-preview.js' %}"></script>
-        <script src="{% static 'js/long-press-delete.js' %}"></script>
-    {% endblock %}
 
 {% endblock %}

@@ -1,5 +1,5 @@
 
-{% load static %}
+{#{% load static %}#}
 
 <div id="gemstone-form">
     <!-- Display all form errors at the top -->
@@ -12,11 +12,14 @@
         <div class="outer-content-container outer-content-small-border">
             <div class="inner-content-container x">
 
+                <!-- Name Input -->
                 <div class="{% if modal_view %}gemstone-form-text-container-lg-modal{% else %}gemstone-form-text-container-lg{% endif %}">
                     <span class="z mr-1"><i class="fas fa-tag icon-red j"></i>&nbsp;</span>
                     <span class="the-spanner">{{ form.name }}</span>
                 </div>
-                <div class="x">
+
+                <!-- Icon Input -->
+                <div id="tempID" class="x">
                     <label for="{{ form.icon.id_for_label }}" class="gemstone-file-label">
                         {{ form.icon }}
 
@@ -27,6 +30,7 @@
                         {% endif %}
                     </label>
                 </div>
+
             </div>
         </div>
 
@@ -116,13 +120,6 @@
             </button>
         </div>
     </form>
-
-
-    {% block extra_js %}
-        <script src="{% static 'js/image-preview.js' %}"></script>
-        <script src="{% static 'js/long-press-delete.js' %}"></script>
-    {% endblock %}
-
 </div>
 
 

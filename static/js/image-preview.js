@@ -34,7 +34,15 @@ document.addEventListener("DOMContentLoaded", function() {
     initializeImagePreview();
 });
 
-// Initialize after htmx swap
 document.addEventListener("htmx:afterSettle", function() {
     initializeImagePreview();
 });
+
+// Initialize for modal
+if (document.getElementById('gemstoneModal')) {
+    document.addEventListener("htmx:afterSettle", function() {
+        initializeImagePreview();
+    });  // Corrected this line
+}
+
+
