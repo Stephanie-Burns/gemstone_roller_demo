@@ -88,7 +88,7 @@ def gemstone_edit(request, gemstone_id):
             context['modal_view'] = True
 
         else:
-            template = 'treasure/gemstone_edit.html'
+            template = 'treasure/gemstone-edit.html'
 
         return render(request, template, context)
 

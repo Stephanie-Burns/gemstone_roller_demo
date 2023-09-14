@@ -75,7 +75,16 @@
                         hx-trigger="click"
                         class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
                 >
-                    <span><i class="fas fa-broom"></i> Delete</span>
+                    <span><i class="fas fa-trash"></i> Delete</span>
+                </button>
+
+                <button hx-get="{% url 'treasure:gemstone_view' gemstone_id %}"
+                        hx-trigger="click"
+                        hx-swap="outerHTML"
+                        hx-target="#gemstone-form"
+                        class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
+                >
+                    <span><i class="fas fa-broom"></i> Cancel</span>
                 </button>
 
             {% else %}
