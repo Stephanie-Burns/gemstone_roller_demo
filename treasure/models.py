@@ -35,6 +35,7 @@ class GemstoneClarity(models.Model):
 
 class GemstoneIcon(models.Model):
 
+    # Front End Fields
     name             = models.CharField(max_length=128)
     image            = models.ImageField(
         upload_to='gemstone-icons',
@@ -42,9 +43,19 @@ class GemstoneIcon(models.Model):
         height_field='height',
         width_field='width'
     )
-    width            = models.PositiveIntegerField()
-    height           = models.PositiveIntegerField()
-    file_hash        = models.CharField(max_length=32, unique=True)
+
+    # Back End Fields
+    file_hash = models.CharField(max_length=32, unique=True, blank=True)
+    width            = models.PositiveIntegerField(blank=True)
+    height           = models.PositiveIntegerField(blank=True)
+
+    created_by       = models.ForeignKey(
+        User,
+        related_name='icons',
+        on_delete=models.CASCADE
+    )
+    created_at       = models.DateTimeField(auto_now_add=True)
+    updated_at       = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -56,7 +67,7 @@ class GemstoneIcon(models.Model):
         self.height, self.width = services.shrink_image(self.image.path)
 
     def generate_name(self, gemstone_name, file_hash):
-        self.name = slugify(f'gemstone-icon_{gemstone_name}_{file_hash}')
+        self.name = slugify(f'gemstone-icon-{file_hash}-{gemstone_name}')
 
 
 class GemstoneManager(models.Manager):
@@ -94,13 +105,30 @@ class Gemstone(models.Model):
     )
 
     # Back End Fields
-    dmg_row_value   = models.IntegerField(null=True)
+    dmg_row_value   = models.IntegerField(null=True, blank=True)
     unique_name     = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    created_by      = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by      = models.ForeignKey(
+        User,
+        related_name='gemstones',
+        on_delete=models.CASCADE
+    )
     created_at      = models.DateTimeField(auto_now_add=True)
     updated_at      = models.DateTimeField(auto_now=True)
 
+    # Object Manager
     objects = GemstoneManager()
+
+    def __str__(self):
+
+        # System Objects
+        if self.created_by == User.objects.get(username='System'):
+
+            x_value = ('-' + str(self.value)).rjust(6, 'X')
+            return f'#{self.id:02} [{self.dmg_row_value:02}:{x_value}] {self.name}'
+
+        # User Objects
+        else:
+            return f'{self.name}_{self.unique_name}'
 
     @transaction.atomic
     def delete(self, *args, **kwargs):

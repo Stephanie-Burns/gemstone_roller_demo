@@ -17,6 +17,7 @@ class GemstoneAdmin(admin.ModelAdmin):
         'description',
         'dmg_row_value',
         'id',
+        'created_by'
     )
 
     def _icon(self, obj):
@@ -26,7 +27,7 @@ class GemstoneAdmin(admin.ModelAdmin):
 
 @admin.register(models.GemstoneIcon)
 class GemstoneIconAdmin(admin.ModelAdmin):
-    list_display = ('icon', 'name', 'id', 'width', 'height')
+    list_display = ('icon', 'name', 'id', 'width', 'height', 'created_by')
 
     def icon(self, obj):
         return format_html('<img src="{}" width="32" height="32"/>'.format(obj.image.url))

@@ -33,7 +33,7 @@ def gemstone_create(request):
 
             gemstone = form.save(commit=False)
             upload_icon = request.FILES.get('icon', None)
-            gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name)
+            gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name, request.user)
             gemstone.created_by = request.user
             gemstone.save()
 
@@ -68,15 +68,18 @@ def gemstone_edit(request, gemstone_id):
     if request.method == 'POST':
         form = forms.GemstoneForm(request.POST, instance=gemstone)
 
+        print(form)
+
         if form.is_valid():
             gemstone = form.save(commit=False)
+            # gemstone.created_by = request.user
             upload_icon = request.FILES.get('icon', None)
 
             if upload_icon:
-                gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name)
+                gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name, request.user)
 
             gemstone.save()
-            return HttpResponseRedirect(reverse('gemstone_view', args=[gemstone.id]))
+            return HttpResponseRedirect(reverse('treasure:gemstone_view', args=[gemstone.id]))
 
     if request.method == 'GET':
 
