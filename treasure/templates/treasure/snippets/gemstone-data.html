@@ -47,7 +47,7 @@
 
 
 <br>
-{% if user.is_authenticated %}
+{% if request.user.is_authenticated and request.user == gemstone.created_by %}
     <div class="d-flex">
 
         <!-- Delete Button -->

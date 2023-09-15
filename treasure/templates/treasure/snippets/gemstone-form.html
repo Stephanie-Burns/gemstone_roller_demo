@@ -93,7 +93,6 @@
                 <!-- Clear Button -->
                 <button hx-get="{% url 'treasure:gemstone_form' %}"
                         hx-trigger="click"
-                        hx-swap="innerHTML"
                         hx-target="#gemstone-form"
                         class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
                 >
@@ -103,12 +102,19 @@
             {% endif %}
 
             <!-- Save Button -->
-            <button type="submit" class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
+            <button type="submit"
+                    hx-encoding="multipart/form-data"
+                    hx-post="
+                             {% if form.name.value %}
+                             {% url 'treasure:gemstone_edit' gemstone_id %}
+                             {% else %}
+                             {% url 'treasure:gemstone_create' %}{% endif %}
+                    "
+                    hx-target="#gemstone-form"
+                    class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
                 <span><i class="fas fa-save"></i> Save</span>
             </button>
         </div>
     </form>
 
 </div>
-
-

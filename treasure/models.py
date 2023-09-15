@@ -87,15 +87,16 @@ class GemstoneManager(models.Manager):
 class Gemstone(models.Model):
 
     # Front End Fields
-    name             = models.CharField(max_length=128)
+    name             = models.CharField(max_length=128, db_index=True)
     value            = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(1_000_000)])
     clarity          = models.ForeignKey(
         GemstoneClarity,
         related_name='gemstones',
         on_delete=models.SET_DEFAULT,
-        default=1
+        default=1,
+        db_index=True
     )
-    color            = models.CharField(max_length=128, blank=True, verbose_name='Color(s)')
+    color            = models.CharField(max_length=128, blank=True, verbose_name='Color(s)', db_index=True)
     description      = models.TextField(max_length=1024)
     icon             = models.ForeignKey(
         GemstoneIcon,
@@ -110,7 +111,8 @@ class Gemstone(models.Model):
     created_by      = models.ForeignKey(
         User,
         related_name='gemstones',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        db_index=True
     )
     created_at      = models.DateTimeField(auto_now_add=True)
     updated_at      = models.DateTimeField(auto_now=True)

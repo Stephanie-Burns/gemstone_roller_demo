@@ -3,7 +3,7 @@ import random
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 
@@ -65,20 +65,21 @@ def gemstone_edit(request, gemstone_id):
     gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
     htmx_request = request.headers.get('HX-Request')
 
+    if gemstone.created_by != request.user:
+        return HttpResponseForbidden("You do not have permission to edit this gemstone.")
+
     if request.method == 'POST':
         form = forms.GemstoneForm(request.POST, instance=gemstone)
 
-        print(form)
-
         if form.is_valid():
             gemstone = form.save(commit=False)
-            # gemstone.created_by = request.user
             upload_icon = request.FILES.get('icon', None)
 
             if upload_icon:
                 gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name, request.user)
 
             gemstone.save()
+
             return HttpResponseRedirect(reverse('treasure:gemstone_view', args=[gemstone.id]))
 
     if request.method == 'GET':
@@ -104,6 +105,10 @@ def gemstone_delete(request, gemstone_id):
         return HttpResponseNotAllowed(['POST'])
 
     gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
+
+    if gemstone.created_by != request.user:
+        return HttpResponseForbidden("You do not have permission to delete this gemstone.")
+
     gemstone.delete()
 
     response = HttpResponse()
@@ -171,6 +176,7 @@ def gemstone_search_table(request):
         return render(request, 'treasure/snippets/gemstone-table.html', context)
 
 
+@login_required()
 def gemstone_form(request):
 
     gem_id = request.GET.get('id')
