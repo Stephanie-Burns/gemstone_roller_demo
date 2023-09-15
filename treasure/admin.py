@@ -8,10 +8,21 @@ from . import models
 
 @admin.register(models.Gemstone)
 class GemstoneAdmin(admin.ModelAdmin):
-    list_display = ('name', '_icon', 'value', 'clarity', 'color', 'description', 'id')
+    list_display = (
+        'name',
+        '_icon',
+        'value',
+        'clarity',
+        'color',
+        'description',
+        'dmg_row_value',
+        'id',
+    )
+
     def _icon(self, obj):
         url = reverse("admin:treasure_gemstoneicon_change", args=[obj.icon.id])
         return format_html('<a href="{}"><img src="{}" width="32" height="32"/></a>'.format(url, obj.icon.image.url))
+
 
 @admin.register(models.GemstoneIcon)
 class GemstoneIconAdmin(admin.ModelAdmin):

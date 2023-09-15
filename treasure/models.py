@@ -1,4 +1,7 @@
 
+import uuid
+
+from django.contrib.auth.models import User
 from django.core.files.storage import default_storage
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models, transaction
@@ -72,6 +75,7 @@ class GemstoneManager(models.Manager):
 
 class Gemstone(models.Model):
 
+    # Front End Fields
     name             = models.CharField(max_length=128)
     value            = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(1_000_000)])
     clarity          = models.ForeignKey(
@@ -88,6 +92,13 @@ class Gemstone(models.Model):
         on_delete=models.SET_DEFAULT,
         default=1
     )
+
+    # Back End Fields
+    dmg_row_value   = models.IntegerField(null=True)
+    unique_name     = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    created_by      = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at      = models.DateTimeField(auto_now_add=True)
+    updated_at      = models.DateTimeField(auto_now=True)
 
     objects = GemstoneManager()
 

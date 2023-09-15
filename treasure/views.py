@@ -34,6 +34,7 @@ def gemstone_create(request):
             gemstone = form.save(commit=False)
             upload_icon = request.FILES.get('icon', None)
             gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name)
+            gemstone.created_by = request.user
             gemstone.save()
 
             return redirect('treasure:gemstone_view', gemstone.id)
