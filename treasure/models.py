@@ -45,9 +45,9 @@ class GemstoneIcon(models.Model):
     )
 
     # Back End Fields
-    file_hash = models.CharField(max_length=32, unique=True, blank=True)
-    width            = models.PositiveIntegerField(blank=True)
+    file_hash        = models.CharField(max_length=32, unique=True, blank=True)
     height           = models.PositiveIntegerField(blank=True)
+    width            = models.PositiveIntegerField(blank=True)
 
     created_by       = models.ForeignKey(
         User,

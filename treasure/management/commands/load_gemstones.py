@@ -8,7 +8,7 @@ from django.db import transaction
 
 import dotenv
 
-from treasure.models import GemstoneClarity
+from treasure import models
 from . import utils
 
 
@@ -34,7 +34,7 @@ class Command(BaseCommand):
         user, _ = utils.get_or_create_user(os.getenv('DEFAULT_USER'), os.getenv('DEFAULT_PASSWORD'))
 
         # Default Gemstone Icon
-        utils.get_or_create_icon_local(DEFAULT_ICON_PATH, 'default', user)
+        _ = utils.get_or_create_icon_local(DEFAULT_ICON_PATH, 'default', user)
 
         # Gemstone CSV Data
         csv_file_path = options['csv_file']
@@ -45,7 +45,7 @@ class Command(BaseCommand):
 
             for row in reader:
 
-                clarity, _              = GemstoneClarity.objects.get_or_create(name=row['clarity'])
+                clarity, _              = models.GemstoneClarity.objects.get_or_create(name=(row['clarity']).capitalize())
                 icon                    = utils.get_or_create_icon_local(LOCAL_PATH / row['icon'], row['name'], user)
                 gemstone, was_created   = utils.create_or_update_gemstone(row, clarity, user, icon)
 
