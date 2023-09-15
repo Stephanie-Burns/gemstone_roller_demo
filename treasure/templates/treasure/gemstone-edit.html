@@ -3,19 +3,24 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <h1>Edit Gemstone</h1>
 
-        {% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url gemstone_id=gemstone_id %}
+    <div class="outer-content-container mb-4">
+        <div class="container inner-content-container">
+            <h2>Edit Gemstone</h2>
 
-        <form
-                action="{% url 'treasure:gemstone_delete' gemstone_id %}"
-                method="post"
-                onsubmit="return confirm('Warning: this cannot be undone. Are you sure you want to delete this gemstone?');"
-        >
-            {% csrf_token %}
-            <input type="submit" value="Delete Gemstone">
-        </form>
+            <p>
+                Fine-tuning a gemstone allows you to tweak its properties and powers.
+                Whether you're enhancing its spellcasting abilities or increasing its value,
+                each edit brings you closer to realizing the gem's full potential.
+                Make your changes carefully to unlock new possibilities.
+            </p>
+        </div>
+    </div>
+
+    <div class="outer-content-container mb-4">
+        <div class="container inner-content-container">
+            {% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url gemstone_id=gemstone_id %}
+        </div>
     </div>
 
     {% block extra_js %}
