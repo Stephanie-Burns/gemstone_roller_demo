@@ -2,6 +2,7 @@
 import hashlib
 from PIL import Image
 
+from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from . import models
@@ -44,7 +45,7 @@ def shrink_image(img_path):
     return img.height, img.width
 
 
-def get_or_create_icon(upload_icon: InMemoryUploadedFile, gemstone_name: str):
+def get_or_create_icon(upload_icon: InMemoryUploadedFile, gemstone_name: str, user: User):
 
     if upload_icon:
 
@@ -57,7 +58,7 @@ def get_or_create_icon(upload_icon: InMemoryUploadedFile, gemstone_name: str):
 
         else:
 
-            new_icon = models.GemstoneIcon.objects.create(image=upload_icon, file_hash=file_hash)
+            new_icon = models.GemstoneIcon.objects.create(image=upload_icon, file_hash=file_hash, created_by=user)
             new_icon.generate_name(gemstone_name, file_hash)
             new_icon.save()
 
