@@ -26,14 +26,16 @@ def create_or_update_gemstone(row: dict, clarity: models.GemstoneClarity, user: 
     gemstone, was_created = models.Gemstone.objects.update_or_create(
         unique_name=row['unique_name'],
         defaults={
-            'name'          : row['name'],
-            'value'         : row['value'],
-            'clarity'       : clarity,
-            'color'         : row['color'],
-            'description'   : row['description'],
-            'icon'          : icon,
-            'dmg_row_value' : int(row.get('dmg_row_value'), 0),
-            'created_by'    : user,
+            'name'              : row['name'],
+            'value'             : row['value'],
+            'clarity'           : clarity,
+            'color'             : row['color'],
+            'description'       : row['description'],
+            'icon'              : icon,
+            'dmg_row_value'     : int(row['dmg_row_value']),
+            'dmg_item_number'   : int(row['dmg_item_number']),
+            'origin'            : row['origin'],
+            'created_by'        : user,
         }
     )
     return gemstone, was_created

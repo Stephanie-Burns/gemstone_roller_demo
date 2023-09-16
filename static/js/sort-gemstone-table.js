@@ -9,6 +9,7 @@ function sortTable(column, dataType) {
         "value": 2,
         "clarity": 3,
         "color": 4,
+        "author": 5,
     };
 
     const index = columnMap[column];
@@ -21,8 +22,16 @@ function sortTable(column, dataType) {
     }
 
     const sortedRows = rows.sort((a, b) => {
-        const aValue = a.cells[index].innerText;
-        const bValue = b.cells[index].innerText;
+        let aValue, bValue;
+
+        if (column === 'author') {
+            aValue = a.querySelector(`td[data-author]`).getAttribute('data-author');
+            bValue = b.querySelector(`td[data-author]`).getAttribute('data-author');
+        } else {
+            const index = columnMap[column];
+            aValue = a.cells[index].innerText;
+            bValue = b.cells[index].innerText;
+        }
 
         let comparison;
         if (dataType === "number") {
@@ -42,4 +51,3 @@ function sortTable(column, dataType) {
         tbody.appendChild(row);
     });
 }
-

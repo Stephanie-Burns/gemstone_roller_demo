@@ -1,9 +1,14 @@
 
 import hashlib
+from functools import wraps
 from PIL import Image
+from typing import Optional
 
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.http import HttpResponse, HttpResponseForbidden
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 
 from . import models
 
@@ -67,3 +72,40 @@ def get_or_create_icon(upload_icon: InMemoryUploadedFile, gemstone_name: str, us
     else:
 
         return models.GemstoneIcon.objects.get(id=1)
+
+
+def validate_search_filter(request) -> str:
+
+    search_filters = ['user', 'system']
+    search_filter = request.GET.get('filter', '')
+    return '' if search_filter not in search_filters else search_filter
+
+
+def get_user(request) -> Optional[User]:
+
+    if request.user:
+        return request.user
+
+
+def htmx_redirect(request, view_name, *args, **kwargs):
+
+    response = HttpResponse()
+    url = reverse(view_name, args=args, kwargs=kwargs)
+    response["HX-Redirect"] = request.build_absolute_uri(url)
+
+    return response
+
+
+def user_owns_gemstone(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        gemstone_id = kwargs.get('gemstone_id')
+        gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
+
+        if gemstone.created_by != request.user:
+            return HttpResponseForbidden("You do not have permission to modify this gemstone.")
+
+        request.gemstone = gemstone
+        return view_func(request, *args, **kwargs)
+
+    return _wrapped_view

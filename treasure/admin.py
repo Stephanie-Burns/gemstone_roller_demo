@@ -16,6 +16,7 @@ class GemstoneAdmin(admin.ModelAdmin):
         'color',
         'description',
         'dmg_row_value',
+        'dmg_item_number',
         'id',
         'created_by'
     )

@@ -1,6 +1,7 @@
 
 import random
 
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed, HttpResponseRedirect
@@ -59,14 +60,12 @@ def gemstone_view(request, gemstone_id):
 
 
 @login_required
+@services.user_owns_gemstone
 @transaction.atomic
 def gemstone_edit(request, gemstone_id):
 
-    gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
+    gemstone = request.gemstone
     htmx_request = request.headers.get('HX-Request')
-
-    if gemstone.created_by != request.user:
-        return HttpResponseForbidden("You do not have permission to edit this gemstone.")
 
     if request.method == 'POST':
         form = forms.GemstoneForm(request.POST, instance=gemstone)
@@ -79,6 +78,8 @@ def gemstone_edit(request, gemstone_id):
                 gemstone.icon = services.get_or_create_icon(upload_icon, gemstone.name, request.user)
 
             gemstone.save()
+
+            # return services.htmx_redirect('treasure:gemstone_view', gemstone.id)
 
             return HttpResponseRedirect(reverse('treasure:gemstone_view', args=[gemstone.id]))
 
@@ -99,30 +100,36 @@ def gemstone_edit(request, gemstone_id):
 
 
 @login_required
+@services.user_owns_gemstone
 def gemstone_delete(request, gemstone_id):
 
     if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
 
-    gemstone = get_object_or_404(models.Gemstone, pk=gemstone_id)
-
-    if gemstone.created_by != request.user:
-        return HttpResponseForbidden("You do not have permission to delete this gemstone.")
-
+    gemstone = request.gemstone
     gemstone.delete()
 
-    response = HttpResponse()
-    response["HX-Redirect"] = request.build_absolute_uri(reverse('treasure:gemstone_search'))
-    return response
+    return services.htmx_redirect(request, 'treasure:gemstone_search')
 
 
 def gemstone_all(request):
-    gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
+
+    user = services.get_user(request)
+    gemstones = models.Gemstone.objects.base_queryset(user=user)
+
     return render(request, 'treasure/snippets/gemstone-all.html', {'gemstones': gemstones})
 
 
 def gemstone_search(request):
-    gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
+
+    search_filter = services.validate_search_filter(request)
+    user = services.get_user(request)
+
+    gemstones = models.Gemstone.objects.base_queryset(user=user)
+
+    if search_filter:
+        gemstones = gemstones.filter(origin=search_filter)
+
     return render(request, 'treasure/gemstone-search.html', {'gemstones': gemstones})
 
 

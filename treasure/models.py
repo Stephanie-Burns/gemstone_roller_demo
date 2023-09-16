@@ -49,6 +49,7 @@ class GemstoneIcon(models.Model):
     height           = models.PositiveIntegerField(blank=True)
     width            = models.PositiveIntegerField(blank=True)
 
+    origin = models.CharField(max_length=32, default='user', blank=True)
     created_by       = models.ForeignKey(
         User,
         related_name='icons',
@@ -71,6 +72,18 @@ class GemstoneIcon(models.Model):
 
 
 class GemstoneManager(models.Manager):
+
+    def base_queryset(self, *, user: User = None):
+
+        base_origins = ['dnd_fifth_edition']
+
+        if user:
+            query = self.filter(Q(origin__in=base_origins) | Q(created_by=user))
+
+        else:
+            query = self.filter(origin__in=base_origins)
+
+        return query.order_by(GEMSTONE_DEFAULT_ORDER)
 
     def search_for(self, *, search_term: str):
 
@@ -107,7 +120,9 @@ class Gemstone(models.Model):
 
     # Back End Fields
     dmg_row_value   = models.IntegerField(null=True, blank=True)
+    dmg_item_number = models.IntegerField(null=True, blank=True)
     unique_name     = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    origin          = models.CharField(max_length=32, default='user', blank=True)
     created_by      = models.ForeignKey(
         User,
         related_name='gemstones',
