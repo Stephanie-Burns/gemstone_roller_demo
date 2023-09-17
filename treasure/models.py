@@ -85,12 +85,17 @@ class GemstoneManager(models.Manager):
 
         return query.order_by(GEMSTONE_DEFAULT_ORDER)
 
-    def search_for(self, *, search_term: str):
+    def search_for(self, *, search_term: str, user: User = None):
+
+        gem_pool = self.base_queryset(user=user)
+
+        if not search_term:
+            return gem_pool
 
         if search_term.isnumeric():
-            return self.filter(value=int(search_term))
+            return gem_pool.filter(value=int(search_term))
 
-        return self.filter(
+        return gem_pool.filter(
             Q(name__icontains=search_term)          |
             Q(clarity__name__icontains=search_term) |
             Q(color__icontains=search_term)

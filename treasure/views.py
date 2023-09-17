@@ -18,7 +18,9 @@ def index(request):
 
 
 def gemstone_index(request):
-    gemstones = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
+    user = services.get_user(request)
+    gemstones = models.Gemstone.objects.base_queryset(user=user)
+
     return render(request, 'treasure/gemstone-index.html', {'gemstones': gemstones})
 
 
@@ -150,16 +152,17 @@ def gemstone_roll(request):
 
     if request.headers.get('HX-Request'):
 
+        user = services.get_user(request)
+        gem_pool = models.Gemstone.objects.base_queryset(user=user)
+
         gemstones = []
+
         for gem, count in request.GET.items():
 
+            # TODO scrub this against list for security
             if gem.startswith('gem') and int(count) > 0:
 
-                gem_objects = (
-                    models.Gemstone.objects
-                    .filter(value__exact=gem.split('-')[1])
-                    .order_by(models.GEMSTONE_DEFAULT_ORDER)
-                )
+                gem_objects = gem_pool.filter(value__exact=gem.split('-')[1])
                 gemstones.extend(random.choices(gem_objects, k=int(count)))
 
         return render(request, 'treasure/snippets/gemstone-table.html', {'gemstones': gemstones})
@@ -180,34 +183,13 @@ def gemstone_search_table(request):
 
     context = {'gemstones': None, 'search_enabled': True}
     search_term = request.GET.get('q')
+    user = services.get_user(request)
 
-    if search_term:
-
-        context['gemstones'] = (
-            models.Gemstone.objects
-            .search_for(search_term=search_term)
-            .order_by(models.GEMSTONE_DEFAULT_ORDER)
-        )
-
-        return render(request, 'treasure/snippets/gemstone-table.html', context)
-
-    else:
-        context['gemstones'] = models.Gemstone.objects.all().order_by(models.GEMSTONE_DEFAULT_ORDER)
-        return render(request, 'treasure/snippets/gemstone-table.html', context)
+    context['gemstones'] = models.Gemstone.objects.search_for(search_term=search_term, user=user)
+    return render(request, 'treasure/snippets/gemstone-table.html', context)
 
 
 @login_required()
 def gemstone_form(request):
-
-    gem_id = request.GET.get('id')
-
-    if gem_id:
-        gemstone = get_object_or_404(models.Gemstone, pk=gem_id)
-        form = forms.GemstoneForm(instance=gemstone)
-    else:
-        form = forms.GemstoneForm()
-
-    if request.headers.get('HX-Request'):
-        return render(request, 'treasure/snippets/gemstone-form.html', {'form': form})
-    else:
-        return render(request, 'treasure/gemstone-create.html', {'form': form})
+    form = forms.GemstoneForm()
+    return render(request, 'treasure/snippets/gemstone-form.html', {'form': form})
