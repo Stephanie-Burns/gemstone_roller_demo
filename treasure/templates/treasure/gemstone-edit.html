@@ -4,24 +4,30 @@
 
 {% block content %}
 
-    <div class="outer-content-container mb-4">
-        <div class="container inner-content-container">
-            <h2>Edit Gemstone</h2>
+    {% if modal %}
 
-            <p>
-                Fine-tuning a gemstone allows you to tweak its properties and powers.
-                Whether you're enhancing its spellcasting abilities or increasing its value,
-                each edit brings you closer to realizing the gem's full potential.
-                Make your changes carefully to unlock new possibilities.
-            </p>
-        </div>
-    </div>
+        {% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url gemstone_id=gemstone_id %}
 
-    <div class="outer-content-container mb-4">
-        <div class="container inner-content-container">
-            {% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url gemstone_id=gemstone_id %}
+    {% else %}
+        <div class="outer-content-container mb-4">
+            <div class="container inner-content-container">
+                <h2>Edit Gemstone</h2>
+
+                <p>
+                    Fine-tuning a gemstone allows you to tweak its properties and powers.
+                    Whether you're enhancing its spellcasting abilities or increasing its value,
+                    each edit brings you closer to realizing the gem's full potential.
+                    Make your changes carefully to unlock new possibilities.
+                </p>
+            </div>
         </div>
-    </div>
+
+        <div class="outer-content-container mb-4">
+            <div class="container inner-content-container">
+                {% include 'treasure/snippets/gemstone-form.html' with icon_url=icon_url gemstone_id=gemstone_id %}
+            </div>
+        </div>
+    {% endif %}
 
     {% block extra_js %}
         <script src="{% static 'js/image-preview.js' %}"></script>

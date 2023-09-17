@@ -24,6 +24,7 @@
                 {% for gemstone in gemstones %}
                     <tr class="gemstone-tr"
                         hx-get="{% url 'treasure:gemstone_view' gemstone.id %}"
+                        hx-vals='{"modal": "true"}'
                         hx-trigger="click"
                         hx-swap="innerHTML"
                         hx-target="#gemstoneDetails"

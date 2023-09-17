@@ -13,7 +13,7 @@
             <div class="inner-content-container gemstone-form-flexbox">
 
                 <!-- Name Input -->
-                <div class="{% if modal_view %}gemstone-form-text-container-lg-modal{% else %}gemstone-form-text-container-lg{% endif %}">
+                <div class="{% if modal %}gemstone-form-text-container-lg-modal{% else %}gemstone-form-text-container-lg{% endif %}">
                     <span class="z mr-1"><i class="fas fa-tag icon-red j"></i>&nbsp;</span>
                     <span class="the-spanner">{{ form.name }}</span>
                 </div>
@@ -53,7 +53,7 @@
                 </div>
 
                 <!-- Color Input -->
-                <div class="{% if modal_view %}gemstone-form-text-container-modal{% else %}gemstone-form-text-container{% endif %}">
+                <div class="{% if modal %}gemstone-form-text-container-modal{% else %}gemstone-form-text-container{% endif %}">
                     <label for="{{ form.color.id_for_label }}" class="mb-0">
                         <i class="fas fa-palette icon-red mr-1 pt-1">&nbsp;</i>
                     </label>
@@ -77,6 +77,7 @@
                 <!-- Delete Button -->
                 <div id="deleteEvent"
                      hx-post="{% url 'treasure:gemstone_delete' gemstone_id %}"
+                     {% if modal %}hx-vals='{"modal": "true"}'{% endif %}
                      hx-trigger="deleteConfirmed"
                 >
                 </div>
@@ -92,6 +93,7 @@
 
                 <!-- Clear Button -->
                 <button hx-get="{% url 'treasure:gemstone_form' %}"
+                        {% if modal %}hx-vals='{"modal": "true"}'{% endif %}
                         hx-trigger="click"
                         hx-target="#gemstone-form"
                         class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin"
@@ -102,18 +104,39 @@
             {% endif %}
 
             <!-- Save Button -->
+
+            {% if modal %}<!-- Modal Save Button -->
             <button type="submit"
                     hx-encoding="multipart/form-data"
                     hx-post="
                              {% if form.name.value %}
-                             {% url 'treasure:gemstone_edit' gemstone_id %}
+                             {% url 'treasure:gemstone_view' gemstone_id %}?modal=true
                              {% else %}
-                             {% url 'treasure:gemstone_create' %}{% endif %}
+                             {% url 'treasure:gemstone_create' %}?modal=true
+                             {% endif %}
                     "
                     hx-target="#gemstone-form"
                     class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
                 <span><i class="fas fa-save"></i> Save</span>
             </button>
+
+            {% else %} <!-- Page Save Button -->
+            <button type="submit"
+                    hx-encoding="multipart/form-data"
+                    hx-post="
+                             {% if form.name.value %}
+                             {% url 'treasure:gemstone_view' gemstone_id %}
+                             {% else %}
+                             {% url 'treasure:gemstone_create' %}
+                             {% endif %}
+                    "
+                    hx-target="body"
+                    hx-push-url="true"
+                    class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
+                <span><i class="fas fa-save"></i> Save</span>
+            </button>
+            {% endif %}
+
         </div>
     </form>
 

@@ -49,14 +49,13 @@ def gemstone_create(request):
 
 def gemstone_view(request, gemstone_id):
 
-    context = {'gemstone': get_object_or_404(models.Gemstone, pk=gemstone_id), 'is_htmx': False}
+    modal_view = services.is_modal_view(request)
+    context = {'gemstone': get_object_or_404(models.Gemstone, pk=gemstone_id), 'modal': modal_view}
 
-    if request.headers.get('HX-Request'):
-        context['htmx_request'] = True
+    if modal_view:
         return render(request, 'treasure/snippets/gemstone-data.html', context)
 
-    else:
-        return render(request, 'treasure/gemstone-view.html', context)
+    return render(request, 'treasure/gemstone-view.html', context)
 
 
 @login_required
@@ -65,7 +64,7 @@ def gemstone_view(request, gemstone_id):
 def gemstone_edit(request, gemstone_id):
 
     gemstone = request.gemstone
-    htmx_request = request.headers.get('HX-Request')
+    modal_view = services.is_modal_view(request)
 
     if request.method == 'POST':
         form = forms.GemstoneForm(request.POST, instance=gemstone)
@@ -79,24 +78,35 @@ def gemstone_edit(request, gemstone_id):
 
             gemstone.save()
 
-            # return services.htmx_redirect('treasure:gemstone_view', gemstone.id)
+            context = {"gemstone": gemstone, 'modal': modal_view}
 
-            return HttpResponseRedirect(reverse('treasure:gemstone_view', args=[gemstone.id]))
+            if modal_view:
+
+                return render(request, 'treasure/snippets/gemstone-data.html', context)
+
+            return render(request, 'treasure/gemstone-view.html', context)
+
+        else:  # Form Invalid
+
+            icon_url = gemstone.icon.image.url if gemstone.icon else None
+            context = {'form': form, 'icon_url': icon_url, 'gemstone_id': gemstone_id, 'modal': modal_view}
+
+            if modal_view:
+                return render(request, 'treasure/snippets/gemstone-form.html', context)
+
+            return render(request, 'treasure/gemstone-edit.html', context)
 
     if request.method == 'GET':
 
         form = forms.GemstoneForm(instance=gemstone)
         icon_url = gemstone.icon.image.url if gemstone.icon else None
-        context = {'form': form, 'icon_url': icon_url, 'gemstone_id': gemstone_id}
+        context = {'form': form, 'icon_url': icon_url, 'gemstone_id': gemstone_id, 'modal': modal_view}
+        print(modal_view)
 
-        if htmx_request:
-            template = 'treasure/snippets/gemstone-form.html'
-            context['modal_view'] = True
+        if modal_view:
+            return render(request, 'treasure/snippets/gemstone-form.html', context)
 
-        else:
-            template = 'treasure/gemstone-edit.html'
-
-        return render(request, template, context)
+        return render(request, 'treasure/gemstone-edit.html', context)
 
 
 @login_required

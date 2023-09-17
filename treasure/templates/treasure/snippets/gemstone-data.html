@@ -1,7 +1,8 @@
 
 {% load humanize %}
 
-{% if htmx_request %}
+{% if modal %}
+{#  Link to page view, modal=false #}
     <span hx-swap-oob="true" id="gemstoneModalLabel">
         <a href="{% url 'treasure:gemstone_view' gemstone.id %}">View Gemstone</a>
     </span>
@@ -53,7 +54,8 @@
         <!-- Delete Button -->
         <div id="deleteEvent"
              hx-post="{% url 'treasure:gemstone_delete' gemstone.id %}"
-             hx-trigger="deleteConfirmed delay:500ms"
+             {% if modal %}hx-vals='{"modal": "true"}'{% endif %}
+             hx-trigger="deleteConfirmed delay:1000ms"
         >
         </div>
         <button type="button"
@@ -65,13 +67,26 @@
         </button>
 
         <!-- Edit Button -->
+
+        {% if modal %}  <!-- Modal Edit Button -->
         <button hx-get="{% url 'treasure:gemstone_edit' gemstone.id %}"
+                hx-vals='{"modal": "true"}'
                 hx-trigger="click"
-                hx-swap="innerHTML swap:700ms"
+                hx-swap="innerHTML"
                 hx-target="#gemstone-view"
                 class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
             <i class="fas fa-edit"></i> Edit
+
+        {% else %}       <!-- Page Edit Button -->
         </button>
+                <button hx-get="{% url 'treasure:gemstone_edit' gemstone.id %}"
+                hx-trigger="click"
+                hx-target="body"
+                hx-push-url="true"
+                class="my-btn my-btn-primary my-btn-large mb-3 flex-fill my-btn-add-margin">
+            <i class="fas fa-edit"></i> Edit
+        </button>
+        {% endif %}
     </div>
 {% endif %}
 

@@ -6,7 +6,7 @@ from typing import Optional
 
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 
@@ -74,16 +74,17 @@ def get_or_create_icon(upload_icon: InMemoryUploadedFile, gemstone_name: str, us
         return models.GemstoneIcon.objects.get(id=1)
 
 
-def validate_search_filter(request) -> str:
+def validate_search_filter(request: HttpRequest) -> str:
 
     search_filters = ['user', 'system']
     search_filter = request.GET.get('filter', '')
     return '' if search_filter not in search_filters else search_filter
 
 
-def get_user(request) -> Optional[User]:
+def get_user(request: HttpRequest) -> Optional[User]:
 
-    if request.user:
+    if request.user and request.user.is_authenticated:
+
         return request.user
 
 
@@ -109,3 +110,9 @@ def user_owns_gemstone(view_func):
         return view_func(request, *args, **kwargs)
 
     return _wrapped_view
+
+
+def is_modal_view(request: HttpRequest) -> bool:
+
+    if request.GET.get('modal', '') == 'true':
+        return True
