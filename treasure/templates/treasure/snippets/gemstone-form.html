@@ -1,5 +1,12 @@
 
-{#{% load static %}#}
+
+{% if modal %}
+{#  Link to page view, modal=false #}
+    <span hx-swap-oob="true" id="gemstoneModalLabel">
+        <a href="{% url 'treasure:gemstone_edit' gemstone_id %}">Edit Gemstone</a>
+    </span>
+{% endif %}
+
 
 <div id="gemstone-form">
     <!-- Display all form errors at the top -->
@@ -72,7 +79,7 @@
 
         <!-- Buttons -->
         <div class="d-flex">
-            {% if form.name.value %}
+            {% if gemstone_id %}
 
                 <!-- Delete Button -->
                 <div id="deleteEvent"
@@ -109,8 +116,8 @@
             <button type="submit"
                     hx-encoding="multipart/form-data"
                     hx-post="
-                             {% if form.name.value %}
-                             {% url 'treasure:gemstone_view' gemstone_id %}?modal=true
+                             {% if gemstone_id %}
+                             {% url 'treasure:gemstone_edit' gemstone_id %}?modal=true
                              {% else %}
                              {% url 'treasure:gemstone_create' %}?modal=true
                              {% endif %}
@@ -124,8 +131,8 @@
             <button type="submit"
                     hx-encoding="multipart/form-data"
                     hx-post="
-                             {% if form.name.value %}
-                             {% url 'treasure:gemstone_view' gemstone_id %}
+                             {% if gemstone_id %}
+                             {% url 'treasure:gemstone_edit' gemstone_id %}
                              {% else %}
                              {% url 'treasure:gemstone_create' %}
                              {% endif %}

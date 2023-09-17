@@ -40,6 +40,9 @@ def gemstone_create(request):
 
             return redirect('treasure:gemstone_view', gemstone.id)
 
+        else:
+            return render(request, 'treasure/gemstone-create.html', {'form': form})
+
     else:
 
         form = forms.GemstoneForm()
