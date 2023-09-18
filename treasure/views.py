@@ -137,13 +137,8 @@ def gemstone_all(request):
 
 def gemstone_search(request):
 
-    search_filter = services.validate_search_filter(request)
     user = services.get_user(request)
-
     gemstones = models.Gemstone.objects.base_queryset(user=user)
-
-    if search_filter:
-        gemstones = gemstones.filter(origin=search_filter)
 
     return render(request, 'treasure/gemstone-search.html', {'gemstones': gemstones})
 
@@ -173,36 +168,18 @@ def gemstone_roll(request):
 # HTMX endpoints =============================================================
 def gemstone_search_table(request):
 
-    # TODO const dict and function(...EXPECTED_REFERER, redirect_url)
-    referer = request.headers.get('Referer')
-    expected_referer = request.build_absolute_uri(reverse('treasure:gemstone_search'))
-    htmx_request = request.headers.get('HX-Request')
-
-    # if referer != expected_referer or not htmx_request:
-    #     return redirect('treasure:gemstone_search')
-
+    if not request.headers.get('HX-Request'):
+        return redirect('treasure:gemstone_search')
 
     if request.method == 'POST':
 
-        print(request.POST)
-
-        context = {'gemstones': None, 'search_enabled': True}
+        context = {'search_enabled': True}
         search_term = request.POST.get('q')
 
         user = services.get_user(request)
-
         gem_pool = models.Gemstone.objects.search_for(search_term=search_term, user=user)
 
-        if request.POST.get('dnd_fifth_edition'):
-            print('fifth')
-            gem_pool = gem_pool.filter(origin='dnd_fifth_edition')
-
-        if request.POST.get('user_created'):
-            print('user')
-            gem_pool = gem_pool.filter(origin='user')
-            print(gem_pool)
-
-        context['gemstones'] = gem_pool
+        context['gemstones'] = services.apply_search_filters(request, gem_pool)
 
         return render(request, 'treasure/snippets/gemstone-table.html', context)
 

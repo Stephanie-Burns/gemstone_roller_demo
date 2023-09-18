@@ -116,3 +116,14 @@ def is_modal_view(request: HttpRequest) -> bool:
 
     if request.GET.get('modal', '') == 'true':
         return True
+
+
+def apply_search_filters(request, gem_pool):
+
+    if request.POST.get('dnd_fifth_edition'):
+        gem_pool = gem_pool.filter(origin='dnd_fifth_edition')
+
+    if request.POST.get('user_created'):
+        gem_pool = gem_pool.filter(origin='user')
+
+    return gem_pool
