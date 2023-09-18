@@ -4,6 +4,7 @@
 {% block content %}
     <section>
 
+        <!-- Flavor -->
         <div class="outer-content-container mb-4">
             <div class="container inner-content-container pb-0">
                 <h2>Gemstones</h2>
@@ -17,21 +18,41 @@
             </div>
         </div>
 
+        <!-- Search Form -->
         <div id="search-box">
-            <div class="outer-content-container outer-search-box-container inline-flex-container">
-                <div class="inner-content-container inner-search-box-container">
-                    <input name="q"
-                           type="search"
-                           class="search-box-input"
-                           placeholder="Search for a gem..."
-                           hx-get="{% url 'treasure:gemstone_search_table' %}"
-                           hx-trigger="input delay:0.2s"
-                           hx-target="#search-results"
-                    >
+            <form hx-post="{% url 'treasure:gemstone_search_table' %}"
+                  hx-trigger="input delay:0.2s"
+                  hx-target="#search-results"
+            >
+                <div class="search-flexbox-outer-container">
+
+                    <!-- Search Input -->
+                    <div class="search-box-container{% if not user.is_authenticated %} top-right-border{% endif %}">
+                        <input name="q" type="search" placeholder=" Gem Search..." class="search-box-input">
+                    </div>
+
+                    {% if user.is_authenticated %}
+                    <div class="search-filter-container">
+                        <span> Filters:</span>
+
+                        <!-- Filter 5e -->
+                        <label class="mb-0 pl-1">
+                            <i class="fab fa-d-and-d"></i>
+                            <input type="checkbox" name="dnd_fifth_edition" value="true">
+                        </label>
+
+                        <!-- Filter User -->
+                        <label class="mb-0 pl-2 pr-1">
+                            <i class="fas fa-user"></i>
+                            <input type="checkbox" name="user_created" value="true">
+                        </label>
+                    </div>
+                    {% endif %}
                 </div>
-            </div>
+            </form>
         </div>
 
+        <!-- Search Results -->
         <div id="search-results">
             {% include 'treasure/snippets/gemstone-table.html' with search_enabled=True %}
         </div>

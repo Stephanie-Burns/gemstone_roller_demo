@@ -178,15 +178,33 @@ def gemstone_search_table(request):
     expected_referer = request.build_absolute_uri(reverse('treasure:gemstone_search'))
     htmx_request = request.headers.get('HX-Request')
 
-    if referer != expected_referer or not htmx_request:
-        return redirect('treasure:gemstone_search')
+    # if referer != expected_referer or not htmx_request:
+    #     return redirect('treasure:gemstone_search')
 
-    context = {'gemstones': None, 'search_enabled': True}
-    search_term = request.GET.get('q')
-    user = services.get_user(request)
 
-    context['gemstones'] = models.Gemstone.objects.search_for(search_term=search_term, user=user)
-    return render(request, 'treasure/snippets/gemstone-table.html', context)
+    if request.method == 'POST':
+
+        print(request.POST)
+
+        context = {'gemstones': None, 'search_enabled': True}
+        search_term = request.POST.get('q')
+
+        user = services.get_user(request)
+
+        gem_pool = models.Gemstone.objects.search_for(search_term=search_term, user=user)
+
+        if request.POST.get('dnd_fifth_edition'):
+            print('fifth')
+            gem_pool = gem_pool.filter(origin='dnd_fifth_edition')
+
+        if request.POST.get('user_created'):
+            print('user')
+            gem_pool = gem_pool.filter(origin='user')
+            print(gem_pool)
+
+        context['gemstones'] = gem_pool
+
+        return render(request, 'treasure/snippets/gemstone-table.html', context)
 
 
 @login_required()
