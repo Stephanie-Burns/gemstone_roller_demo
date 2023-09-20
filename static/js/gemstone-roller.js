@@ -10,22 +10,24 @@ const gemValues = {
 
 const gemIds = Object.keys(gemValues);
 
-function increment(id) {
+function increment(id, event) {
     let elem = document.getElementById(id);
-    let count = parseInt(elem.innerText) + 1;
+    let count = parseInt(elem.innerText);
+    let incrementValue = event.shiftKey ? 10 : 1;  // Check if Shift is pressed
+    count += incrementValue;
     elem.innerText = count;
     document.getElementById(id + '-input').value = count;
     calculate();
 }
 
-function decrement(id) {
+function decrement(id, event) {
     let elem = document.getElementById(id);
     let count = parseInt(elem.innerText);
-    if (count > 0) {
-        count--;
-        elem.innerText = count;
-        document.getElementById(id + '-input').value = count;
-    }
+    let decrementValue = event.shiftKey ? 10 : 1;  // Check if Shift is pressed
+    count -= decrementValue;
+    if (count < 0) count = 0;  // Ensure value doesn't go below zero
+    elem.innerText = count;
+    document.getElementById(id + '-input').value = count;
     calculate();
 }
 
